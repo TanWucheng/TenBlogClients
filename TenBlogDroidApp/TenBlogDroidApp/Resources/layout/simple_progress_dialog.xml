@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_32">
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_64"/>
+
+    <TextView
+        android:id="@+id/tv_dialog_progress_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:singleLine="true"
+        tools:text="请稍等，拼命中..."
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_16" />
+</LinearLayout>

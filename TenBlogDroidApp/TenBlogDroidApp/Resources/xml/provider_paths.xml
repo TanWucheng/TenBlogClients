@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+	<!--<external-path
+		name="files_root"
+		path="Android/data/com.ten.android.tenblogdroidapp/" />-->
+	<!--<files-path path="Documents/" name="My_App_Docs" />-->
+	<!--<external-files-path name="files_root" path="." />-->
+	<files-path name="files_root" path="." />
+</paths>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="app_name">Ten Blog</string>
+	<string name="app_name_cn">Ten Blog安卓客户端</string>
+	<string name="contact_feedback">联系和反馈</string>
+	<string name="contact">联系作者</string>
+	<string name="feedback">反馈错误</string>
+	<string name="share">分享</string>
+	<string name="settings">设置</string>
+	<string name="search">搜索</string>
+	<string name="about">关于</string>
+	<string name="tools">工具</string>
+	<string name="contact_email">tanwucheng@outlook.com</string>
+	<string name="blog_website">tanwucheng.github.io</string>
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<!--FontAwesome-->
+	<string name="fa_calendar_o">&#xf133;</string>
+	<string name="fa_folder_o">&#xf114;</string>
+	<string name="fa_chevron_down">&#xf078;展开</string>
+	<string name="fa_chevron_up">&#xf077;收起</string>
+	<!--Social share-->
+	<string name="twitter">Twitter</string>
+	<string name="facebook">Facebook</string>
+	<string name="telegram">Telegram</string>
+	<string name="linkedin">LinkedIn</string>
+	<string name="wechat">微信</string>
+	<string name="wechat_moment">微信朋友圈</string>
+	<string name="weibo">微博</string>
+	<string name="qq">QQ</string>
+	<string name="sys_share">系统分享</string>
+	<string name="sms">短信</string>
+	<string name="email">邮件</string>
+	<string name="copy_url">复制链接</string>
+</resources>
