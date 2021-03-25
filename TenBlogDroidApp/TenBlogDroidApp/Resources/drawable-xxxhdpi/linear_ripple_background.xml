@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/linearlayout_pressed_shape" android:state_pressed="true"></item>
+  <item android:drawable="@drawable/linearlayout_unpressed_shape" android:state_pressed="false" android:state_selected="false"></item>
+</selector>-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33C0C0C0">
+  <item>
+    <shape android:shape="oval">
+      <solid android:color="#FFFFFF" />
+    </shape>
+  </item>
+</ripple>

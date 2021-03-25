@@ -1,0 +1,221 @@
+﻿<androidx.coordinatorlayout.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:padding="@dimen/dp_16"
+			android:baselineAligned="false">
+
+			<LinearLayout
+				android:id="@+id/linear_wechat_share"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_wechat"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/wechat"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linear_wechat_circle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_wxcircle"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/wechat_moment"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linear_weibo_share"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_sina"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/weibo"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linear_qq_share"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_qq"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/qq"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:padding="@dimen/dp_16"
+			android:baselineAligned="false">
+
+			<LinearLayout
+				android:id="@+id/linear_sys_share"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/ic_sys_share_tethering_primary_24dp"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/sys_share"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linear_copy_url"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_copyurl"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/copy_url"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linear_sms_share"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_sms"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/sms"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linear_email_share"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/dp_8"
+				android:orientation="vertical"
+				android:clickable="true"
+				android:background="@drawable/linear_ripple_background">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/dp_56"
+					android:src="@mipmap/umeng_socialize_gmail"/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/dp_4"
+					android:text="@string/email"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
