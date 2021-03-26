@@ -137,11 +137,10 @@ namespace TenBlogDroidApp.Activities
 
         private void ShowNoticeDialog()
         {
-            var dialog = new SimpleDialogFragment(this, "使用公告", "感谢您下载安装本应用，当前应用程序正在早期开发阶段，很多功能有待测试和完善，如果您在使用过程中发现问题请反馈给我", negativeText: "关闭", isShowNegativeBtn: true);
-            dialog.NegativeClick += delegate
-            {
-                ToastUtil.Show(this, "关闭公告");
-            };
+            var dialog = new SimpleDialogFragment(this, "使用公告",
+                "感谢您下载安装本应用，当前应用程序正在早期开发阶段，很多功能有待测试和完善，如果您在使用过程中发现问题请反馈给我", negativeText: "关闭",
+                isShowNegativeBtn: true);
+            dialog.NegativeClick += delegate { ToastUtil.Show(this, "关闭公告"); };
             dialog.Show(SupportFragmentManager, "NoticeDialogFragment");
         }
 
@@ -252,10 +251,17 @@ namespace TenBlogDroidApp.Activities
             _entries = new List<Entry>();
 
             _blogAdapter = new BlogRecyclerViewAdapter(this, _entries, Resource.Layout.item_blog);
+            _blogAdapter.ItemClick += BlogAdapter_ItemClick;
             _animatorAdapter = new ScaleInAnimatorAdapter(_blogAdapter, _blogRecyclerView);
             _blogRecyclerView.SetAdapter(_animatorAdapter);
 
-            _blogRecyclerView.AddOnScrollListener(new FabScrollListener(this));
+            _blogRecyclerView.AddOnScrollListener(new RecyclerFabScrollListener(this));
+        }
+
+        private void BlogAdapter_ItemClick(object sender, RecyclerItemClickEventArgs e)
+        {
+            var intent = new Intent(this, typeof(BlogArticleActivity));
+            StartActivity(intent);
         }
 
         /// <summary>

@@ -1,15 +1,18 @@
 ﻿using AndroidX.RecyclerView.Widget;
 
-namespace TenBlogNet.AndroidApp.Listeners
+namespace TenBlogDroidApp.Listeners
 {
-    public class FabScrollListener : RecyclerView.OnScrollListener
+    /// <summary>
+    /// RecyclerView滚动监听器，控制FloatingActionButton显隐
+    /// </summary>
+    public class RecyclerFabScrollListener : RecyclerView.OnScrollListener
     {
         private const int Threshold = 20;
         private readonly IFabDisplayListener _displayListener;
         private int _distance;
         private bool _visible;
 
-        public FabScrollListener(IFabDisplayListener displayListener)
+        public RecyclerFabScrollListener(IFabDisplayListener displayListener)
         {
             _displayListener = displayListener;
             _distance = 0;
