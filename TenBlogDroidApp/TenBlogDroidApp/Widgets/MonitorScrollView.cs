@@ -1,14 +1,14 @@
 ﻿using System;
 using Android.Content;
 using Android.Util;
-using Android.Widget;
+using AndroidX.Core.Widget;
 using TenBlogDroidApp.Listeners;
 
 namespace TenBlogDroidApp.Widgets
 {
-    public class MonitorScrollView : ScrollView
+    public class MonitorScrollView : NestedScrollView
     {
-        private const int Threshold = 40;
+        private const int Threshold = 20;
         private IFabDisplayListener _displayListener;
         private int _distance;
         private bool _visible;

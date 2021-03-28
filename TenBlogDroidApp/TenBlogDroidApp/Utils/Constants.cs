@@ -13,6 +13,11 @@
         public const string BlogUrl = "https://tanwucheng.github.io";
 
         /// <summary>
+        /// 博客网站404页面
+        /// </summary>
+        public const string Blog404Url = "https://tanwucheng.github.io/404.html";
+
+        /// <summary>
         ///     Github问题反馈URL
         /// </summary>
         public const string IssuesUrl = "https://github.com/TanWucheng/TenBlogClients/issues";
@@ -26,6 +31,11 @@
         ///     邮件发送URL
         /// </summary>
         public const string MailToMe = "mailto:tanwucheng@outlook.com";
+
+        /// <summary>
+        /// Intent传值博客文章链接Key
+        /// </summary>
+        public const string BlogArticleUrl = "BLOG_ENTRY_LINK";
 
         /// <summary>
         ///     应用程序声明

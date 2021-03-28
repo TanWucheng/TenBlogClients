@@ -15,6 +15,7 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.CoordinatorLayout.Widget;
 using AndroidX.Core.App;
+using AndroidX.Core.Util;
 using AndroidX.Core.View;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
@@ -28,6 +29,7 @@ using Ten.Droid.Library.Utils;
 using TenBlogDroidApp.Adapters;
 using TenBlogDroidApp.Fragments;
 using TenBlogDroidApp.Listeners;
+using TenBlogDroidApp.Models;
 using TenBlogDroidApp.RssSubscriber.Models;
 using TenBlogDroidApp.Services;
 using TenBlogDroidApp.Utils;
@@ -50,11 +52,12 @@ namespace TenBlogDroidApp.Activities
         private SimpleProgressDialogFragment _dialogFragment;
         private Advance3DDrawerLayout _drawer;
         private List<Entry> _entries;
+        private List<SearchResultModel> _searchResults;
         private FloatingActionButton _fab;
         private string _keywords = string.Empty;
         private LinearLayoutManager _layoutManager;
         private RemovableEditText _searchEditText;
-        private StandardRecyclerViewAdapter<string> _searchResultAdapter;
+        private StandardRecyclerViewAdapter<SearchResultModel> _searchResultAdapter;
         private RecyclerView _searchResultRecyclerView;
         private SwipeRefreshLayout _swipeRefreshLayout;
         private Toolbar _toolbar;
@@ -94,9 +97,13 @@ namespace TenBlogDroidApp.Activities
                     }
                 case Resource.Id.nav_contact_feedback:
                     {
-                        Intent intent = new(this, typeof(ContactFeedbackActivity));
-                        var activityOptionsCompat = ActivityOptionsCompat.MakeSceneTransitionAnimation(this);
-                        StartActivity(intent, activityOptionsCompat.ToBundle());
+                        StartContactFeedbackActivity();
+                        break;
+                    }
+                case Resource.Id.nav_about:
+                    {
+                        var intent = new Intent(this, typeof(AboutActivity));
+                        StartActivity(intent);
                         break;
                     }
             }
@@ -104,6 +111,48 @@ namespace TenBlogDroidApp.Activities
             _drawer?.CloseDrawer(GravityCompat.Start);
 
             return true;
+        }
+
+        private void SetupWindowTransitions()
+        {
+            if (Window != null)
+            {
+                //Window.ExitTransition = TransitionInflater.From(this)?.InflateTransition(Resource.Transition.slide);
+
+                // 侧滑动画
+                Slide transition = new()
+                {
+                    SlideEdge = GravityFlags.Start
+                };
+                transition.SetDuration(500);
+
+                Window.ReenterTransition = transition;
+                Window.ExitTransition = transition;
+            }
+        }
+
+        private void StartTransitionActivity(Type target, Pair[] pairs, string link = null)
+        {
+            Intent intent = new(this, target);
+            if (!string.IsNullOrWhiteSpace(link))
+            {
+                intent.PutExtra(Constants.BlogArticleUrl, link);
+            }
+            ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, pairs);
+            StartActivity(intent, transitionActivityOptions.ToBundle());
+        }
+
+        private void StartContactFeedbackActivity()
+        {
+            var pairs = TransitionUtil.CreateSafeTransitionParticipants(this, true);
+            StartTransitionActivity(typeof(ContactFeedbackActivity), pairs);
+        }
+
+        private void StartBlogArticleActivity(string link)
+        {
+            var intent = new Intent(this, typeof(BlogArticleActivity));
+            intent.PutExtra(Constants.BlogArticleUrl, link);
+            StartActivity(intent);
         }
 
         protected override void OnStart()
@@ -121,6 +170,8 @@ namespace TenBlogDroidApp.Activities
 
             SetContentView(Resource.Layout.activity_main);
 
+            SetupWindowTransitions();
+
             InitToolbar();
             InitDrawer();
             InitNavigationView();
@@ -129,7 +180,7 @@ namespace TenBlogDroidApp.Activities
             InitFab();
             InitSearchResultRecyclerView();
             InitSearchEditText();
-            InitExitTransition();
+
             _coordinatorLayout = FindViewById<CoordinatorLayout>(Resource.Id.coordinator_main);
 
             await RssSubscribeAsync();
@@ -137,17 +188,11 @@ namespace TenBlogDroidApp.Activities
 
         private void ShowNoticeDialog()
         {
-            var dialog = new SimpleDialogFragment(this, "使用公告",
-                "感谢您下载安装本应用，当前应用程序正在早期开发阶段，很多功能有待测试和完善，如果您在使用过程中发现问题请反馈给我", negativeText: "关闭",
+            var dialog = new SimpleDialogFragment(this, "耽误您一些时间，请阅读下列说明",
+                "感谢您下载安装本应用，当前应用程序正在早期开发阶段，很多功能有待测试和完善，如果您在使用过程中发现问题请反馈给我", positiveText: "反馈", negativeText: "关闭", isShowPositiveBtn: true,
                 isShowNegativeBtn: true);
-            dialog.NegativeClick += delegate { ToastUtil.Show(this, "关闭公告"); };
+            dialog.PositiveClick += delegate { StartContactFeedbackActivity(); };
             dialog.Show(SupportFragmentManager, "NoticeDialogFragment");
-        }
-
-        private void InitExitTransition()
-        {
-            if (Window != null)
-                Window.ExitTransition = TransitionInflater.From(this)?.InflateTransition(Resource.Transition.slide);
         }
 
         /// <summary>
@@ -196,12 +241,12 @@ namespace TenBlogDroidApp.Activities
                     if (e.Text == null) return;
                     var text = e.Text.ToString();
                     _keywords = text;
-                    var titles = new List<string>();
+                    _searchResults = new List<SearchResultModel>();
                     if (!string.IsNullOrWhiteSpace(text))
-                        titles = (from entry in _entries
-                                  where entry.Title.ToLower().Contains(text.ToLower())
-                                  select entry.Title).Take(20).ToList();
-                    _searchResultAdapter.RefreshItems(titles);
+                        _searchResults = (from entry in _entries
+                                          where entry.Title.ToLower().Contains(text.ToLower())
+                                          select new SearchResultModel { Title = entry.Title, Link = entry.Link }).Take(20).ToList();
+                    _searchResultAdapter.RefreshItems(_searchResults);
                 };
         }
 
@@ -213,11 +258,17 @@ namespace TenBlogDroidApp.Activities
             _searchResultRecyclerView = FindViewById<RecyclerView>(Resource.Id.rv_search_result);
             if (_searchResultRecyclerView == null) return;
             _searchResultRecyclerView.SetLayoutManager(new LinearLayoutManager(this));
+            _searchResults = new List<SearchResultModel>();
             _searchResultAdapter =
-                new StandardRecyclerViewAdapter<string>(Android.Resource.Layout.SimpleListItem1,
-                    new List<string>());
+                new StandardRecyclerViewAdapter<SearchResultModel>(Android.Resource.Layout.SimpleListItem1, _searchResults);
             _searchResultAdapter.OnGetConvertView += SearchResultAdapter_OnGetConvertView;
+            _searchResultAdapter.ItemClick += SearchResultAdapter_ItemClick;
             _searchResultRecyclerView.SetAdapter(_searchResultAdapter);
+        }
+
+        private void SearchResultAdapter_ItemClick(object sender, RecyclerItemClickEventArgs e)
+        {
+            StartBlogArticleActivity(_searchResults[e.Position].Link);
         }
 
         /// <summary>
@@ -228,11 +279,11 @@ namespace TenBlogDroidApp.Activities
         /// <param name="item"></param>
         /// <param name="viewHolder"></param>
         /// <returns></returns>
-        private View SearchResultAdapter_OnGetConvertView(int position, ViewGroup parent, string item,
+        private View SearchResultAdapter_OnGetConvertView(int position, ViewGroup parent, SearchResultModel item,
             StandardRecyclerViewHolder viewHolder)
         {
             var textView = viewHolder.GetView<TextView>(Android.Resource.Id.Text1);
-            textView!.SetHighLightText(this, item, _keywords,
+            textView!.SetHighLightText(this, item.Title, _keywords,
                 Resources?.GetColor(Resource.Color.colorAccent, null) ?? Color.Black);
 
             return viewHolder.GetConvertView();
@@ -260,8 +311,7 @@ namespace TenBlogDroidApp.Activities
 
         private void BlogAdapter_ItemClick(object sender, RecyclerItemClickEventArgs e)
         {
-            var intent = new Intent(this, typeof(BlogArticleActivity));
-            StartActivity(intent);
+            StartBlogArticleActivity(_entries[e.Position].Link);
         }
 
         /// <summary>
@@ -332,7 +382,14 @@ namespace TenBlogDroidApp.Activities
         private void InitFab()
         {
             _fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            if (_fab != null) _fab.Click += (_, _) => { _blogRecyclerView.SmoothScrollToPosition(0); };
+            if (_fab != null)
+            {
+                _fab.Click += (_, _) =>
+                {
+                    _blogRecyclerView.SmoothScrollToPosition(0);
+                    FabHide();
+                };
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,

@@ -10,8 +10,14 @@
 	<string name="search">搜索</string>
 	<string name="about">关于</string>
 	<string name="tools">工具</string>
+	<string name="email_contact">邮件联系我</string>
+	<string name="check_update">检查更新</string>
 	<string name="contact_email">tanwucheng@outlook.com</string>
 	<string name="blog_website">tanwucheng.github.io</string>
+	<string name="official_website">
+		<a href="https://tanwucheng.github.io">Ten Blog</a>
+	</string>
+	<string name="privacy"><a href="#">隐私政策</a></string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
 	<!--FontAwesome-->
@@ -19,6 +25,9 @@
 	<string name="fa_folder_o">&#xf114;</string>
 	<string name="fa_chevron_down">&#xf078;展开</string>
 	<string name="fa_chevron_up">&#xf077;收起</string>
+	<string name="font_mail">&#xf0e0;</string>
+	<string name="font_cloud_download">&#xf0ed;</string>
+	<string name="font_copyright">Copyright &#xf1f9; 2021 Ten</string>
 	<!--Social share-->
 	<string name="twitter">Twitter</string>
 	<string name="facebook">Facebook</string>
@@ -32,4 +41,6 @@
 	<string name="sms">短信</string>
 	<string name="email">邮件</string>
 	<string name="copy_url">复制链接</string>
+	<!--Transition Name-->
+	<string name="transition_name_fab"></string>
 </resources>

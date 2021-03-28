@@ -4,7 +4,7 @@ using Android.Content;
 using Android.OS;
 using DialogFragment = AndroidX.Fragment.App.DialogFragment;
 
-namespace TenBlogDroidApp.Widgets
+namespace TenBlogDroidApp.Fragments
 {
     public class SimpleDialogFragment : DialogFragment
     {
@@ -23,6 +23,10 @@ namespace TenBlogDroidApp.Widgets
         /// 取消按钮点击委托事件
         /// </summary>
         public event EventHandler<DialogClickEventArgs> NegativeClick = null!;
+        /// <summary>
+        /// 对话框创建过程委托事件
+        /// </summary>
+        public event EventHandler<AlertDialog.Builder> DialogCreateHandler = null!;
 
         public SimpleDialogFragment(Context context, string title, string message, string positiveText = "OK", string negativeText = "Cancel", bool isShowPositiveBtn = false, bool isShowNegativeBtn = false)
         {
@@ -38,7 +42,10 @@ namespace TenBlogDroidApp.Widgets
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
         {
             var builder = new AlertDialog.Builder(_context);
-            builder.SetMessage(_message);
+            if (!string.IsNullOrWhiteSpace(_message))
+            {
+                builder.SetMessage(_message);
+            }
             if (!string.IsNullOrWhiteSpace(_title))
             {
                 builder.SetTitle(_title);
@@ -51,6 +58,8 @@ namespace TenBlogDroidApp.Widgets
             {
                 builder.SetNegativeButton(_negativeText, (EventHandler<DialogClickEventArgs>)null);
             }
+
+            OnDialogCreate(builder);
 
             var show = builder.Show();
 
@@ -71,26 +80,31 @@ namespace TenBlogDroidApp.Widgets
         private void NegativeBtn_Click(object sender, EventArgs e)
         {
             var args = new DialogClickEventArgs(-1);
-            NegativeOnClick(args);
+            OnNegativeClick(args);
             Dismiss();
         }
 
         private void PositiveBtn_Click(object sender, EventArgs e)
         {
             var args = new DialogClickEventArgs(1);
-            PositiveOnClick(args);
+            OnPositiveClick(args);
             Dismiss();
         }
 
         /// <summary>
-        /// 确认按钮点击委托
+        /// 确认按钮点击
         /// </summary>
         /// <param name="args"></param>
-        protected void PositiveOnClick(DialogClickEventArgs args) => PositiveClick?.Invoke(this, args);
+        protected void OnPositiveClick(DialogClickEventArgs args) => PositiveClick?.Invoke(this, args);
         /// <summary>
-        /// 取消按钮点击委托
+        /// 取消按钮点击
         /// </summary>
         /// <param name="args"></param>
-        protected void NegativeOnClick(DialogClickEventArgs args) => NegativeClick?.Invoke(this, args);
+        protected void OnNegativeClick(DialogClickEventArgs args) => NegativeClick?.Invoke(this, args);
+        /// <summary>
+        /// 对话框创建过程
+        /// </summary>
+        /// <param name="args"></param>
+        protected void OnDialogCreate(AlertDialog.Builder args) => DialogCreateHandler?.Invoke(this, args);
     }
 }

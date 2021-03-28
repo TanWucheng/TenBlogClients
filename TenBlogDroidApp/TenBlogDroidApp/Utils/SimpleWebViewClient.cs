@@ -1,13 +1,14 @@
-﻿using Android.Webkit;
+﻿using Com.Tencent.Smtt.Export.External.Interfaces;
+using Com.Tencent.Smtt.Sdk;
 
 namespace TenBlogDroidApp.Utils
 {
     public class SimpleWebViewClient : WebViewClient
     {
-        public override bool ShouldOverrideUrlLoading(WebView view, IWebResourceRequest request)
+        public override bool ShouldOverrideUrlLoading(WebView p0, IWebResourceRequest p1)
         {
-            if (request.Url != null) view.LoadUrl(request.Url.ToString()!);
-            return false;
+            if (p1.Url != null) p0.LoadUrl(p1.Url.ToString()!);
+            return true;
         }
     }
 }

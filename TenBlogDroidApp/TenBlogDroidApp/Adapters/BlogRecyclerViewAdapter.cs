@@ -45,7 +45,7 @@ namespace TenBlogDroidApp.Adapters
         /// <param name="args"></param>
         protected void OnClick(RecyclerItemClickEventArgs args)
         {
-            ItemClick(this, args);
+            ItemClick?.Invoke(this, args);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace TenBlogDroidApp.Adapters
         /// <param name="args"></param>
         protected void OnLongClick(RecyclerItemClickEventArgs args)
         {
-            ItemLongClick(this, args);
+            ItemLongClick?.Invoke(this, args);
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
