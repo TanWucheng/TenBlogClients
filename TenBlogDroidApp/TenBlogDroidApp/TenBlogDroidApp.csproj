@@ -114,6 +114,8 @@
     <Compile Include="Fragments\SocialShareDialogFragment.cs" />
     <Compile Include="Activities\AboutActivity.cs" />
     <Compile Include="Utils\ApkVersionCodeUtil.cs" />
+    <Compile Include="Utils\AppBarLayoutBehavior.cs" />
+    <Compile Include="Activities\StatementActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -157,12 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\anim\fab_out.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\transition\slide.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -477,6 +473,14 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\home_scenery.jpg">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_statement.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\transition\activity_exit_slide.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

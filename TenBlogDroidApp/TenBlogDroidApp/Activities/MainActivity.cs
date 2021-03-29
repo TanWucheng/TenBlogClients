@@ -166,11 +166,11 @@ namespace TenBlogDroidApp.Activities
             base.OnCreate(savedInstanceState);
             Platform.Init(this, savedInstanceState);
 
+            SetupWindowTransitions();
+
             RequestPermissionAsync();
 
             SetContentView(Resource.Layout.activity_main);
-
-            SetupWindowTransitions();
 
             InitToolbar();
             InitDrawer();

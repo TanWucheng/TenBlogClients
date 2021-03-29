@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<string name="app_name">Ten Blog</string>
-	<string name="app_name_cn">Ten Blog安卓客户端</string>
+	<string name="app_name">Ten&#8242;s Blog</string>
+	<string name="app_name_cn">Ten&#8242;s Blog安卓客户端</string>
 	<string name="contact_feedback">联系和反馈</string>
 	<string name="contact">联系作者</string>
 	<string name="feedback">反馈错误</string>
@@ -10,14 +10,16 @@
 	<string name="search">搜索</string>
 	<string name="about">关于</string>
 	<string name="tools">工具</string>
-	<string name="email_contact">邮件联系我</string>
+	<string name="weibo_account">我的新浪微博</string>
 	<string name="check_update">检查更新</string>
 	<string name="contact_email">tanwucheng@outlook.com</string>
 	<string name="blog_website">tanwucheng.github.io</string>
-	<string name="official_website">
-		<a href="https://tanwucheng.github.io">Ten Blog</a>
+	<string name="whoami">我是谁</string>
+	<string name="blog_link">
+		<a href="https://tanwucheng.github.io">Ten&#8242;s Blog网站</a>
 	</string>
 	<string name="privacy"><a href="#">隐私政策</a></string>
+	<string name="separater">|</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
 	<!--FontAwesome-->
@@ -25,9 +27,11 @@
 	<string name="fa_folder_o">&#xf114;</string>
 	<string name="fa_chevron_down">&#xf078;展开</string>
 	<string name="fa_chevron_up">&#xf077;收起</string>
-	<string name="font_mail">&#xf0e0;</string>
-	<string name="font_cloud_download">&#xf0ed;</string>
-	<string name="font_copyright">Copyright &#xf1f9; 2021 Ten</string>
+	<string name="fa_mail">&#xf0e0;</string>
+	<string name="fa_cloud_download">&#xf0ed;</string>
+	<string name="fa_weibo">&#xf18a;</string>
+	<string name="fa_question_circle">&#xf059;</string>
+	<string name="fa_copyright">Copyright &#xf1f9; %s Ten</string>
 	<!--Social share-->
 	<string name="twitter">Twitter</string>
 	<string name="facebook">Facebook</string>
@@ -43,4 +47,5 @@
 	<string name="copy_url">复制链接</string>
 	<!--Transition Name-->
 	<string name="transition_name_fab"></string>
+	<string name="transition_whoami">share_whoami</string>
 </resources>
