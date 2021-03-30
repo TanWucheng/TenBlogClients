@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.Content;
-using TenBlogDroidApp.RssSubscriber;
 using TenBlogDroidApp.RssSubscriber.Models;
 using TenBlogDroidApp.Utils;
 
-namespace TenBlogDroidApp.Services
+namespace TenBlogDroidApp.RssSubscriber
 {
     internal static class RssSubscribeService
     {
