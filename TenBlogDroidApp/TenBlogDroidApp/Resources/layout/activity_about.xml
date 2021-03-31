@@ -35,7 +35,7 @@
 				android:id="@+id/iv_logo"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:src="@drawable/github"
+				android:src="@mipmap/ic_launcher_foreground"
 				android:layout_marginTop="@dimen/dp_128"
 				android:layout_gravity="center_horizontal"
 				android:contentDescription="@string/app_name" />
@@ -173,7 +173,7 @@
 					android:layout_marginHorizontal="8dp"
 					android:textColor="@color/colorAccent"
 					android:padding="@dimen/dp_4"
-					android:text="@string/separater"/>
+					android:text="@string/separator"/>
 
 				<TextView
 					android:id="@+id/tv_privacy"

@@ -1,8 +1,11 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
+using TenBlogDroidApp.DataAccess;
+using TenBlogDroidApp.DataAccess.Entities;
 using TenBlogDroidApp.Utils;
 
 namespace TenBlogDroidApp.AppServices
@@ -50,6 +53,15 @@ namespace TenBlogDroidApp.AppServices
         public override void OnCreate()
         {
             base.OnCreate();
+            TenBlogRepository.SaveApplicationLog(new ApplicationLog
+            {
+                NameSpace = GetType().Namespace,
+                ClassName = nameof(CheckAppLifeService),
+                FuncName = "OnCreate()",
+                LogTime = DateTime.Now,
+                Message = "Application Start",
+                MessageType = MessageType.Info
+            });
             ToastUtil.Show(this, "Application启动");
         }
     }

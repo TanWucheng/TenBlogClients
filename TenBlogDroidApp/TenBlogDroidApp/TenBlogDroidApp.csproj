@@ -74,16 +74,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\AppLogActivity.cs" />
     <Compile Include="Activities\BlogArticleActivity.cs" />
     <Compile Include="Activities\TestActivity.cs" />
     <Compile Include="Activities\ContactFeedbackActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Adapters\BlogViewHolder.cs" />
     <Compile Include="Adapters\BlogRecyclerViewAdapter.cs" />
+    <Compile Include="DataAccess\Entities\ApplicationLog.cs" />
+    <Compile Include="DataAccess\Entities\MessageType.cs" />
+    <Compile Include="DataAccess\TenBlogDatabase.cs" />
+    <Compile Include="DataAccess\TenBlogRepository.cs" />
     <Compile Include="Fragments\IDialogFragmentCallBack.cs" />
     <Compile Include="Fragments\SimpleProgressDialogFragment.cs" />
     <Compile Include="Listeners\IFabDisplayListener.cs" />
     <Compile Include="Listeners\RecyclerFabScrollListener.cs" />
+    <Compile Include="Models\AppLogViewModel.cs" />
     <Compile Include="RssSubscriber\Subscriber.cs" />
     <Compile Include="RssSubscriber\ImageGetter\VolleyResponseListener.cs" />
     <Compile Include="RssSubscriber\ImageGetter\HtmlImageGetter.cs" />
@@ -98,7 +104,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Utils\SimpleWebViewClient.cs" />
     <Compile Include="Utils\SnackbarUtil.cs" />
-    <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="Utils\FontManager.cs" />
     <Compile Include="Utils\RequestCodes.cs" />
     <Compile Include="Widgets\MonitorScrollView.cs" />
@@ -107,14 +113,13 @@
     <Compile Include="Widgets\RemovableEditText.cs" />
     <Compile Include="Utils\ToastUtil.cs" />
     <Compile Include="Widgets\SocialShareCoordinatorLayout.cs" />
-    <Compile Include="Models\SearchResultModel.cs" />
+    <Compile Include="Models\BlogSearchModel.cs" />
     <Compile Include="Utils\TransitionUtil.cs" />
     <Compile Include="Fragments\SimpleDialogFragment.cs" />
     <Compile Include="Fragments\SocialShareDialogFragment.cs" />
     <Compile Include="Activities\AboutActivity.cs" />
     <Compile Include="Utils\ApkVersionCodeUtil.cs" />
-    <Compile Include="Utils\AppBarLayoutBehavior.cs" />
-    <Compile Include="Activities\StatementActivity.cs" />
+    <Compile Include="Activities\WhoAmIActivity.cs" />
     <Compile Include="TenBlogDroidApplication.cs" />
     <Compile Include="RssSubscriber\RssSubscribeService.cs" />
     <Compile Include="AppServices\CheckAppLifeService.cs" />
@@ -458,36 +463,52 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\blog_article.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\social_share_menu.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_about.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ripple_accent.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\shape_rect_white.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\home_scenery.jpg">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\activity_statement.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+    <AndroidResource Include="Resources\layout\activity_whoami.xml">
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\transition\activity_exit_slide.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -499,8 +520,14 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="AppServices\" />
+    <AndroidResource Include="Resources\layout\activity_app_log.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_app_log.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

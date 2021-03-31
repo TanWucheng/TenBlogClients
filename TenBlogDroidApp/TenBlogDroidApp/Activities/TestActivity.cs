@@ -58,7 +58,7 @@ namespace TenBlogDroidApp.Activities
             }
 
             var tvExpandSource = FindViewById<TextView>(Resource.Id.tv_expand_source);
-            tvExpandSource.SetHtml(items[4]);
+            tvExpandSource!.SetHtml(items[4]);
 
             var tvExpandAction = FindViewById<TextView>(Resource.Id.tv_expand_action);
             if (tvExpandAction != null)
@@ -67,21 +67,15 @@ namespace TenBlogDroidApp.Activities
                     // 未展开
                     if (!_expandState)
                     {
-                        if (tvExpandSource != null)
-                        {
-                            tvExpandSource.Ellipsize = null;
-                            tvExpandSource.SetSingleLine(false);
-                        }
+                        tvExpandSource.Ellipsize = null;
+                        tvExpandSource.SetSingleLine(false);
 
                         tvExpandAction.SetText(Resource.String.fa_chevron_up);
                     }
                     else
                     {
-                        if (tvExpandSource != null)
-                        {
-                            tvExpandSource.Ellipsize = TextUtils.TruncateAt.End;
-                            tvExpandSource.SetLines(2);
-                        }
+                        tvExpandSource.Ellipsize = TextUtils.TruncateAt.End;
+                        tvExpandSource.SetLines(2);
 
                         tvExpandAction.SetText(Resource.String.fa_chevron_down);
                     }

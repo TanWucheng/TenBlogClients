@@ -20,6 +20,7 @@ namespace TenBlogDroidApp
         public override void OnCreate()
         {
             base.OnCreate();
+            if (ApplicationContext == null) return;
             var intent = new Intent(this, typeof(CheckAppLifeService));
             intent.SetFlags(ActivityFlags.NewTask);
             ApplicationContext.StartService(intent);

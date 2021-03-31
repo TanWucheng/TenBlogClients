@@ -1,11 +1,11 @@
 ﻿using Android.Content;
 using Android.Views;
 using Google.Android.Material.BottomSheet;
-using TenBlogDroidApp.Utils;
+using TenBlogDroidApp.Models;
 
 namespace TenBlogDroidApp.Widgets
 {
-    public class SocialShareBottomSheetDialog : BottomSheetDialog
+    public sealed class SocialShareBottomSheetDialog : BottomSheetDialog
     {
         public SocialShareBottomSheetDialog(Context context) : base(context)
         {

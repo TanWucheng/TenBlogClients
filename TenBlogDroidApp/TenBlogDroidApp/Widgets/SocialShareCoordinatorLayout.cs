@@ -12,6 +12,7 @@ using Com.Sina.Weibo.Sdk.Api;
 using Com.Sina.Weibo.Sdk.Auth;
 using Com.Sina.Weibo.Sdk.Share;
 using Ten.Droid.Library.Utils;
+using TenBlogDroidApp.Models;
 using TenBlogDroidApp.Utils;
 using Uri = Android.Net.Uri;
 
@@ -63,12 +64,10 @@ namespace TenBlogDroidApp.Widgets
             _blogUrl = blogUrl;
             LayoutParameters = new LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
             var view = LayoutInflater.From(Context)?.Inflate(Resource.Layout.social_share_menu, null);
-            if (view != null)
-            {
-                InitShareMenu(view);
-                AddView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
-                InitWeiboSdk();
-            }
+            if (view == null) return;
+            InitShareMenu(view);
+            AddView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+            InitWeiboSdk();
         }
 
         public void OnWbShareCancel()
@@ -97,7 +96,7 @@ namespace TenBlogDroidApp.Widgets
                     intent.SetType("text/plain");
                     intent.PutExtra(Intent.ExtraTitle, "分享博客网址");
                     intent.PutExtra(Intent.ExtraText, _blogUrl);
-                    Context.StartActivity(Intent.CreateChooser(intent, "分享到"));
+                    Context?.StartActivity(Intent.CreateChooser(intent, "分享到"));
                     OnShareMenuClick(sysShareMenu);
                 };
             }
@@ -107,7 +106,7 @@ namespace TenBlogDroidApp.Widgets
             {
                 copyUrlMenu.Click += delegate
                 {
-                    if (Context.GetSystemService(Context.ClipboardService) is not ClipboardManager manager) return;
+                    if (Context?.GetSystemService(Context.ClipboardService) is not ClipboardManager manager) return;
                     var data = ClipData.NewPlainText("shareUrl", _blogUrl);
                     manager.PrimaryClip = data;
                     ToastUtil.Show(Context, "链接已复制到剪贴板");
@@ -124,7 +123,7 @@ namespace TenBlogDroidApp.Widgets
                     var uri = Uri.Parse("smsto:");
                     var intent = new Intent(Intent.ActionSendto, uri);
                     intent.PutExtra("sms_body", $"来自Ten's Blog的分享短信，欢迎访问的我的博客网站：{_blogUrl}");
-                    Context.StartActivity(intent);
+                    Context?.StartActivity(intent);
 
                     OnShareMenuClick(smsShareMenu);
                 };
@@ -139,7 +138,7 @@ namespace TenBlogDroidApp.Widgets
                     intent.SetData(Uri.Parse(Constants.MailToMe));
                     intent.PutExtra(Intent.ExtraSubject, "欢迎访问我的博客网站");
                     intent.PutExtra(Intent.ExtraText, $"<h5>来自Ten's Blog的分享邮件</h5><p><a href='{_blogUrl}'>点此</a>访问博客网站</p>");
-                    Context.StartActivity(Intent.CreateChooser(intent, "选择邮箱客户端"));
+                    Context?.StartActivity(Intent.CreateChooser(intent, "选择邮箱客户端"));
 
                     OnShareMenuClick(emailShareMenu);
                 };
@@ -150,7 +149,7 @@ namespace TenBlogDroidApp.Widgets
             {
                 weChatMenu.Click += delegate
                 {
-                    if (PlatformUtil.IsInstallApp(Context, PlatformUtil.WeChatPackage))
+                    if (PlatformUtil.IsInstallApp(Context!, PlatformUtil.WeChatPackage))
                     {
                         Intent intent = new();
                         ComponentName cop = new(PlatformUtil.WeChatPackage, "com.tencent.mm.ui.tools.ShareImgUI");
@@ -175,10 +174,10 @@ namespace TenBlogDroidApp.Widgets
             {
                 weiboMenu.Click += delegate
                 {
-                    if (PlatformUtil.IsInstallApp(Context, PlatformUtil.WeiboPackage))
+                    if (PlatformUtil.IsInstallApp(Context!, PlatformUtil.WeiboPackage))
                     {
                         WeiboMultiMessage weiboMessage = new() { ImageObject = GetImageObj(Context) };
-                        if (Context.Resources != null)
+                        if (Context?.Resources != null)
                             weiboMessage.TextObject = GetTextObj(Context.Resources.GetString(Resource.String.app_name_cn), "来自Ten's Blog的分享");
                         _shareHandler.ShareMessage(weiboMessage, false);
 
@@ -196,7 +195,7 @@ namespace TenBlogDroidApp.Widgets
             {
                 qqMenu.Click += async delegate
                 {
-                    if (PlatformUtil.IsInstallApp(Context, PlatformUtil.QqPackage))
+                    if (PlatformUtil.IsInstallApp(Context!, PlatformUtil.QqPackage))
                     {
                         SnackbarUtil.Show(Context, contentView, "稍后版本将实现该功能");
                         await Task.Delay(2000);

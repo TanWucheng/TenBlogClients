@@ -1,4 +1,4 @@
-﻿namespace TenBlogDroidApp.Utils
+﻿namespace TenBlogDroidApp.Models
 {
     internal struct Constants
     {

@@ -11,6 +11,7 @@ using AndroidX.CoordinatorLayout.Widget;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Ten.Droid.Library.Extensions;
+using TenBlogDroidApp.Models;
 using TenBlogDroidApp.Utils;
 using Xamarin.Essentials;
 using File = Java.IO.File;
@@ -92,19 +93,22 @@ namespace TenBlogDroidApp.Activities
             if (_feedbackButton == null) return;
             _feedbackButton.Click += delegate
             {
-                Intent intent = new(Intent.ActionSend);
-                //intent.AddFlags(ActivityFlags.GrantReadUriPermission);
-                intent.SetData(Uri.Parse(Constants.MailToMe));
-                intent.PutExtra(Intent.ExtraSubject, Constants.FeedbackSubjectExample);
-                var appDocPath = FilesDir?.AbsolutePath;
-                var absFilePath = Path.Combine(appDocPath ?? string.Empty, $"applog_{DateTime.Now:yyyyMMdd}.log");
-                var logUri = FileProvider.GetUriForFile(this, PackageName + ".fileprovider", new File(absFilePath));
-                //GrantUriPermission("com.microsoft.office.outlook", logUri, ActivityFlags.GrantReadUriPermission);
-                intent.PutExtra(Intent.ExtraText,
-                    string.Format(Constants.FeedbackBodyExample, DateTime.Now.ToLongDateString(),
-                        DateTime.Now.ToLongTimeString()));
-                intent.PutExtra(Intent.ExtraStream, logUri);
-                StartActivityForResult(intent, RequestCodes.SendEmail);
+                //Intent intent = new(Intent.ActionSend);
+                ////intent.AddFlags(ActivityFlags.GrantReadUriPermission);
+                //intent.SetData(Uri.Parse(Constants.MailToMe));
+                //intent.PutExtra(Intent.ExtraSubject, Constants.FeedbackSubjectExample);
+                //var appDocPath = FilesDir?.AbsolutePath;
+                //var absFilePath = Path.Combine(appDocPath ?? string.Empty, $"applog_{DateTime.Now:yyyyMMdd}.log");
+                //var logUri = FileProvider.GetUriForFile(this, PackageName + ".fileprovider", new File(absFilePath));
+                ////GrantUriPermission("com.microsoft.office.outlook", logUri, ActivityFlags.GrantReadUriPermission);
+                //intent.PutExtra(Intent.ExtraText,
+                //    string.Format(Constants.FeedbackBodyExample, DateTime.Now.ToLongDateString(),
+                //        DateTime.Now.ToLongTimeString()));
+                //intent.PutExtra(Intent.ExtraStream, logUri);
+                //StartActivityForResult(intent, RequestCodes.SendEmail);
+
+                var intent = new Intent(this, typeof(AppLogActivity));
+                StartActivity(intent);
             };
         }
 

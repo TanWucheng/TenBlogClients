@@ -10,6 +10,7 @@ using Google.Android.Material.AppBar;
 using Google.Android.Material.FloatingActionButton;
 using TenBlogDroidApp.Fragments;
 using TenBlogDroidApp.Listeners;
+using TenBlogDroidApp.Models;
 using TenBlogDroidApp.Utils;
 using TenBlogDroidApp.Widgets;
 using Xamarin.Essentials;

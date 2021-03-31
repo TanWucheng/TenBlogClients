@@ -22,8 +22,8 @@ namespace TenBlogDroidApp.Activities
         private LinearLayout _checkUpdateLayout;
         private TextView _tvVersion;
         private TextView _tvCopyRight;
-        private TextView _tvWhoami;
-        private LinearLayout _whoamiLayout;
+        private TextView _tvWhoAmI;
+        private LinearLayout _whoAmILayout;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,19 +37,8 @@ namespace TenBlogDroidApp.Activities
             InitCheckUpdateLinear();
             InitVersionTextView();
             InitCopyRightTextView();
-            InitWhoamiLayout();
+            InitWhoAmILayout();
         }
-
-        //private void StartTransitionActivity(Type target, Pair[] pairs, string link = null)
-        //{
-        //    Intent intent = new(this, target);
-        //    if (!string.IsNullOrWhiteSpace(link))
-        //    {
-        //        intent.PutExtra(Constants.BlogArticleUrl, link);
-        //    }
-        //    ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, pairs);
-        //    StartActivity(intent, transitionActivityOptions.ToBundle());
-        //}
 
         private void InitRootView()
         {
@@ -86,20 +75,22 @@ namespace TenBlogDroidApp.Activities
         {
             _tvCopyRight = FindViewById<TextView>(Resource.Id.tv_copyright);
             if (_tvCopyRight == null) return;
-            _tvCopyRight.Text = Resources.GetString(Resource.String.fa_copyright, DateTime.Now.Year);
+            if (Resources != null)
+                _tvCopyRight.Text = Resources.GetString(Resource.String.fa_copyright, DateTime.Now.Year);
         }
 
-        private void InitWhoamiLayout()
+        private void InitWhoAmILayout()
         {
-            _tvWhoami = FindViewById<TextView>(Resource.Id.tv_whoami);
-            _whoamiLayout = FindViewById<LinearLayout>(Resource.Id.ll_whoami);
-            if (_whoamiLayout == null) return;
-            _whoamiLayout.Click += delegate
+            _tvWhoAmI = FindViewById<TextView>(Resource.Id.tv_whoami);
+            _whoAmILayout = FindViewById<LinearLayout>(Resource.Id.ll_whoami);
+            if (_whoAmILayout == null) return;
+            _whoAmILayout.Click += delegate
             {
-                var sharePairs = new Pair[1] { new Pair(_tvWhoami, Resources.GetString(Resource.String.transition_whoami)) };
+                if (Resources == null) return;
+                var sharePairs = new Pair[] { new(_tvWhoAmI, Resources.GetString(Resource.String.transition_whoami)) };
                 var pairs = TransitionUtil.CreateSafeTransitionParticipants(this, true, sharePairs);
-                Intent intent = new(this, typeof(StatementActivity));
-                ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, pairs);
+                Intent intent = new(this, typeof(WhoAmIActivity));
+                var transitionActivityOptions = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, pairs);
                 StartActivity(intent, transitionActivityOptions.ToBundle());
             };
         }

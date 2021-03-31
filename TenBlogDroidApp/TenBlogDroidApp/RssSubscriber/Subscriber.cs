@@ -308,7 +308,7 @@ namespace TenBlogDroidApp.RssSubscriber
                                         {
                                             var type = entryChildNode.Attributes["type"]?.Value;
                                             summaryType =
-                                               EnumParser<SummaryType>.Parse(type, SummaryType.Plain);
+                                               EnumParser<SummaryType>.Parse(type!, SummaryType.Plain);
                                         }
 
                                         var summary = new Summary

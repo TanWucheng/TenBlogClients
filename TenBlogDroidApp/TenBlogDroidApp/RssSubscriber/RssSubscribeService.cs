@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.Content;
+using TenBlogDroidApp.Models;
 using TenBlogDroidApp.RssSubscriber.Models;
 using TenBlogDroidApp.Utils;
 

@@ -7,7 +7,7 @@ namespace TenBlogDroidApp.Utils
     {
         public static void Show(Context context, string message, ToastLength length = ToastLength.Short)
         {
-            Toast.MakeText(context, message, length).Show();
+            Toast.MakeText(context, message, length)?.Show();
         }
     }
 }

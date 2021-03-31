@@ -3,6 +3,7 @@
 	<string name="app_name">Ten&#8242;s Blog</string>
 	<string name="app_name_cn">Ten&#8242;s Blog安卓客户端</string>
 	<string name="contact_feedback">联系和反馈</string>
+	<string name="app_log">应用程序日志</string>
 	<string name="contact">联系作者</string>
 	<string name="feedback">反馈错误</string>
 	<string name="share">分享</string>
@@ -12,16 +13,20 @@
 	<string name="tools">工具</string>
 	<string name="weibo_account">我的新浪微博</string>
 	<string name="check_update">检查更新</string>
-	<string name="contact_email">tanwucheng@outlook.com</string>
 	<string name="blog_website">tanwucheng.github.io</string>
 	<string name="whoami">我是谁</string>
 	<string name="blog_link">
 		<a href="https://tanwucheng.github.io">Ten&#8242;s Blog网站</a>
 	</string>
-	<string name="privacy"><a href="#">隐私政策</a></string>
-	<string name="separater">|</string>
+	<string name="privacy">
+		<a href="#">隐私政策</a>
+	</string>
+	<string name="separator">|</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<!--App Log Item-->
+	<string name="message_type">日志类型:</string>
+	<string name="message_content">日志内容:</string>
 	<!--FontAwesome-->
 	<string name="fa_calendar_o">&#xf133;</string>
 	<string name="fa_folder_o">&#xf114;</string>

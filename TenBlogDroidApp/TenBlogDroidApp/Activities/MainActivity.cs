@@ -52,13 +52,13 @@ namespace TenBlogDroidApp.Activities
         private SimpleProgressDialogFragment _dialogFragment;
         private Advance3DDrawerLayout _drawer;
         private List<Entry> _entries;
-        private List<SearchResultModel> _searchResults;
         private FloatingActionButton _fab;
         private string _keywords = string.Empty;
         private LinearLayoutManager _layoutManager;
         private RemovableEditText _searchEditText;
-        private StandardRecyclerViewAdapter<SearchResultModel> _searchResultAdapter;
+        private StandardRecyclerViewAdapter<BlogSearchModel> _searchResultAdapter;
         private RecyclerView _searchResultRecyclerView;
+        private List<BlogSearchModel> _searchResults;
         private SwipeRefreshLayout _swipeRefreshLayout;
         private Toolbar _toolbar;
 
@@ -90,22 +90,22 @@ namespace TenBlogDroidApp.Activities
             switch (menuItem.ItemId)
             {
                 case Resource.Id.nav_share:
-                    {
-                        _bottomSheetDialog ??= new SocialShareBottomSheetDialog(this);
-                        _bottomSheetDialog.Show();
-                        break;
-                    }
+                {
+                    _bottomSheetDialog ??= new SocialShareBottomSheetDialog(this);
+                    _bottomSheetDialog.Show();
+                    break;
+                }
                 case Resource.Id.nav_contact_feedback:
-                    {
-                        StartContactFeedbackActivity();
-                        break;
-                    }
+                {
+                    StartContactFeedbackActivity();
+                    break;
+                }
                 case Resource.Id.nav_about:
-                    {
-                        var intent = new Intent(this, typeof(AboutActivity));
-                        StartActivity(intent);
-                        break;
-                    }
+                {
+                    var intent = new Intent(this, typeof(AboutActivity));
+                    StartActivity(intent);
+                    break;
+                }
             }
 
             _drawer?.CloseDrawer(GravityCompat.Start);
@@ -115,30 +115,23 @@ namespace TenBlogDroidApp.Activities
 
         private void SetupWindowTransitions()
         {
-            if (Window != null)
+            if (Window == null) return;
+            // 侧滑动画
+            Slide transition = new()
             {
-                //Window.ExitTransition = TransitionInflater.From(this)?.InflateTransition(Resource.Transition.slide);
+                SlideEdge = GravityFlags.Start
+            };
+            transition.SetDuration(500);
 
-                // 侧滑动画
-                Slide transition = new()
-                {
-                    SlideEdge = GravityFlags.Start
-                };
-                transition.SetDuration(500);
-
-                Window.ReenterTransition = transition;
-                Window.ExitTransition = transition;
-            }
+            Window.ReenterTransition = transition;
+            Window.ExitTransition = transition;
         }
 
         private void StartTransitionActivity(Type target, Pair[] pairs, string link = null)
         {
             Intent intent = new(this, target);
-            if (!string.IsNullOrWhiteSpace(link))
-            {
-                intent.PutExtra(Constants.BlogArticleUrl, link);
-            }
-            ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, pairs);
+            if (!string.IsNullOrWhiteSpace(link)) intent.PutExtra(Constants.BlogArticleUrl, link);
+            var transitionActivityOptions = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, pairs);
             StartActivity(intent, transitionActivityOptions.ToBundle());
         }
 
@@ -153,12 +146,6 @@ namespace TenBlogDroidApp.Activities
             var intent = new Intent(this, typeof(BlogArticleActivity));
             intent.PutExtra(Constants.BlogArticleUrl, link);
             StartActivity(intent);
-        }
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-            LogFileUtil.NewInstance(this).SaveLogToFile("开发日志：Ten's Blog安卓客户端OnStart()");
         }
 
         protected override async void OnCreate(Bundle savedInstanceState)
@@ -189,8 +176,8 @@ namespace TenBlogDroidApp.Activities
         private void ShowNoticeDialog()
         {
             var dialog = new SimpleDialogFragment(this, "耽误您一些时间，请阅读下列说明",
-                "感谢您下载安装本应用，当前应用程序正在早期开发阶段，很多功能有待测试和完善，如果您在使用过程中发现问题请反馈给我", positiveText: "反馈", negativeText: "关闭", isShowPositiveBtn: true,
-                isShowNegativeBtn: true);
+                "感谢您下载安装本应用，当前应用程序正在早期开发阶段，很多功能有待测试和完善，如果您在使用过程中发现问题请反馈给我", "反馈", "关闭", true,
+                true);
             dialog.PositiveClick += delegate { StartContactFeedbackActivity(); };
             dialog.Show(SupportFragmentManager, "NoticeDialogFragment");
         }
@@ -241,11 +228,11 @@ namespace TenBlogDroidApp.Activities
                     if (e.Text == null) return;
                     var text = e.Text.ToString();
                     _keywords = text;
-                    _searchResults = new List<SearchResultModel>();
+                    _searchResults = new List<BlogSearchModel>();
                     if (!string.IsNullOrWhiteSpace(text))
                         _searchResults = (from entry in _entries
-                                          where entry.Title.ToLower().Contains(text.ToLower())
-                                          select new SearchResultModel { Title = entry.Title, Link = entry.Link }).Take(20).ToList();
+                            where entry.Title.ToLower().Contains(text.ToLower())
+                            select new BlogSearchModel {Title = entry.Title, Link = entry.Link}).Take(20).ToList();
                     _searchResultAdapter.RefreshItems(_searchResults);
                 };
         }
@@ -258,9 +245,10 @@ namespace TenBlogDroidApp.Activities
             _searchResultRecyclerView = FindViewById<RecyclerView>(Resource.Id.rv_search_result);
             if (_searchResultRecyclerView == null) return;
             _searchResultRecyclerView.SetLayoutManager(new LinearLayoutManager(this));
-            _searchResults = new List<SearchResultModel>();
+            _searchResults = new List<BlogSearchModel>();
             _searchResultAdapter =
-                new StandardRecyclerViewAdapter<SearchResultModel>(Android.Resource.Layout.SimpleListItem1, _searchResults);
+                new StandardRecyclerViewAdapter<BlogSearchModel>(Android.Resource.Layout.SimpleListItem1,
+                    _searchResults);
             _searchResultAdapter.OnGetConvertView += SearchResultAdapter_OnGetConvertView;
             _searchResultAdapter.ItemClick += SearchResultAdapter_ItemClick;
             _searchResultRecyclerView.SetAdapter(_searchResultAdapter);
@@ -279,7 +267,7 @@ namespace TenBlogDroidApp.Activities
         /// <param name="item"></param>
         /// <param name="viewHolder"></param>
         /// <returns></returns>
-        private View SearchResultAdapter_OnGetConvertView(int position, ViewGroup parent, SearchResultModel item,
+        private View SearchResultAdapter_OnGetConvertView(int position, ViewGroup parent, BlogSearchModel item,
             StandardRecyclerViewHolder viewHolder)
         {
             var textView = viewHolder.GetView<TextView>(Android.Resource.Id.Text1);
@@ -320,6 +308,7 @@ namespace TenBlogDroidApp.Activities
         private async Task RssSubscribeAsync()
         {
             _dialogFragment = SimpleProgressDialogFragment.NewInstance("博文拼命加载中...");
+            _dialogFragment.Cancelable = false;
             DialogShow();
             _entries = await RssSubscribeService.GetBlogEntries(this);
             _blogAdapter.RefreshItems(_entries);
@@ -383,13 +372,11 @@ namespace TenBlogDroidApp.Activities
         {
             _fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             if (_fab != null)
-            {
                 _fab.Click += (_, _) =>
                 {
                     _blogRecyclerView.SmoothScrollToPosition(0);
                     FabHide();
                 };
-            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
@@ -423,15 +410,15 @@ namespace TenBlogDroidApp.Activities
             switch (item.ItemId)
             {
                 case Resource.Id.action_right_drawer:
+                {
+                    if (_drawer != null)
                     {
-                        if (_drawer != null)
-                        {
-                            _drawer.OpenDrawer(GravityCompat.End);
-                            return true;
-                        }
-
-                        break;
+                        _drawer.OpenDrawer(GravityCompat.End);
+                        return true;
                     }
+
+                    break;
+                }
             }
 
             return base.OnOptionsItemSelected(item);

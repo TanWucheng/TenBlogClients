@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_margin"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:stateListAnimator="@drawable/selector_elevation"
+    app:cardElevation="@dimen/dp_6"
+    app:contentPadding="@dimen/dp_16"
+    app:cardCornerRadius="@dimen/dp_8"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_app_log_picture"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:src="@drawable/ic_code_teal_500_48dp"
+            android:tint="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_msg_type_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:text="@string/message_type"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_app_log_picture"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_log_msg_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:text="错误"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_msg_type_head"
+            app:layout_constraintStart_toEndOf="@id/tv_msg_type_head"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_msg_content_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:text="@string/message_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_msg_type_head"
+            app:layout_constraintStart_toEndOf="@id/iv_app_log_picture"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_log_msg_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:text="2021"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_msg_content_head"
+            app:layout_constraintStart_toEndOf="@id/tv_msg_content_head"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

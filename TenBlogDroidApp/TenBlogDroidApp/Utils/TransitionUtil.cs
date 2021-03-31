@@ -11,13 +11,14 @@ namespace TenBlogDroidApp.Utils
         {
             // Avoid system UI glitches as described here:
             // https://plus.google.com/+AlexLockwood/posts/RPtwZ5nNebb
-            View decor = activity.Window.DecorView;
+            if (activity.Window == null) return new Pair[] { };
+            var decor = activity.Window.DecorView;
             View statusBar = null;
             if (includeStatusBar)
             {
                 statusBar = decor.FindViewById(Android.Resource.Id.StatusBarBackground);
             }
-            View navBar = decor.FindViewById(Android.Resource.Id.NavigationBarBackground);
+            var navBar = decor.FindViewById(Android.Resource.Id.NavigationBarBackground);
 
             // 创建一对过渡参与者。
             List<Pair> participants = new();
@@ -30,9 +31,10 @@ namespace TenBlogDroidApp.Utils
                 participants.AddRange(otherParticipants);
             }
             return participants.ToArray();
+
         }
 
-        private static void AddNonNullViewToTransitionParticipants(View view, List<Pair> participants)
+        private static void AddNonNullViewToTransitionParticipants(View view, ICollection<Pair> participants)
         {
             if (view == null)
             {
