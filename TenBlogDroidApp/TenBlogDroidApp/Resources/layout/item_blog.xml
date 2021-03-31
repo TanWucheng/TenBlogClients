@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textStyle="bold"
-            android:includeFontPadding="true"
+            android:includeFontPadding="false"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_marginStart="@dimen/dp_8"
             app:layout_constraintStart_toEndOf="@id/iv_blog_picture"

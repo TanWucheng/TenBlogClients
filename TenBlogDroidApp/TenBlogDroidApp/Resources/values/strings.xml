@@ -24,9 +24,6 @@
 	<string name="separator">|</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<!--App Log Item-->
-	<string name="message_type">日志类型:</string>
-	<string name="message_content">日志内容:</string>
 	<!--FontAwesome-->
 	<string name="fa_calendar_o">&#xf133;</string>
 	<string name="fa_folder_o">&#xf114;</string>

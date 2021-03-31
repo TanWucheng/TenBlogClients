@@ -56,7 +56,7 @@ namespace TenBlogDroidApp.Activities
         private string _keywords = string.Empty;
         private LinearLayoutManager _layoutManager;
         private RemovableEditText _searchEditText;
-        private StandardRecyclerViewAdapter<BlogSearchModel> _searchResultAdapter;
+        private StandardAdapter<BlogSearchModel> _searchResultAdapter;
         private RecyclerView _searchResultRecyclerView;
         private List<BlogSearchModel> _searchResults;
         private SwipeRefreshLayout _swipeRefreshLayout;
@@ -90,22 +90,22 @@ namespace TenBlogDroidApp.Activities
             switch (menuItem.ItemId)
             {
                 case Resource.Id.nav_share:
-                {
-                    _bottomSheetDialog ??= new SocialShareBottomSheetDialog(this);
-                    _bottomSheetDialog.Show();
-                    break;
-                }
+                    {
+                        _bottomSheetDialog ??= new SocialShareBottomSheetDialog(this);
+                        _bottomSheetDialog.Show();
+                        break;
+                    }
                 case Resource.Id.nav_contact_feedback:
-                {
-                    StartContactFeedbackActivity();
-                    break;
-                }
+                    {
+                        StartContactFeedbackActivity();
+                        break;
+                    }
                 case Resource.Id.nav_about:
-                {
-                    var intent = new Intent(this, typeof(AboutActivity));
-                    StartActivity(intent);
-                    break;
-                }
+                    {
+                        var intent = new Intent(this, typeof(AboutActivity));
+                        StartActivity(intent);
+                        break;
+                    }
             }
 
             _drawer?.CloseDrawer(GravityCompat.Start);
@@ -231,8 +231,8 @@ namespace TenBlogDroidApp.Activities
                     _searchResults = new List<BlogSearchModel>();
                     if (!string.IsNullOrWhiteSpace(text))
                         _searchResults = (from entry in _entries
-                            where entry.Title.ToLower().Contains(text.ToLower())
-                            select new BlogSearchModel {Title = entry.Title, Link = entry.Link}).Take(20).ToList();
+                                          where entry.Title.ToLower().Contains(text.ToLower())
+                                          select new BlogSearchModel { Title = entry.Title, Link = entry.Link }).Take(20).ToList();
                     _searchResultAdapter.RefreshItems(_searchResults);
                 };
         }
@@ -247,7 +247,7 @@ namespace TenBlogDroidApp.Activities
             _searchResultRecyclerView.SetLayoutManager(new LinearLayoutManager(this));
             _searchResults = new List<BlogSearchModel>();
             _searchResultAdapter =
-                new StandardRecyclerViewAdapter<BlogSearchModel>(Android.Resource.Layout.SimpleListItem1,
+                new StandardAdapter<BlogSearchModel>(Android.Resource.Layout.SimpleListItem1,
                     _searchResults);
             _searchResultAdapter.OnGetConvertView += SearchResultAdapter_OnGetConvertView;
             _searchResultAdapter.ItemClick += SearchResultAdapter_ItemClick;
@@ -268,7 +268,7 @@ namespace TenBlogDroidApp.Activities
         /// <param name="viewHolder"></param>
         /// <returns></returns>
         private View SearchResultAdapter_OnGetConvertView(int position, ViewGroup parent, BlogSearchModel item,
-            StandardRecyclerViewHolder viewHolder)
+            StandardHolder viewHolder)
         {
             var textView = viewHolder.GetView<TextView>(Android.Resource.Id.Text1);
             textView!.SetHighLightText(this, item.Title, _keywords,
@@ -410,15 +410,15 @@ namespace TenBlogDroidApp.Activities
             switch (item.ItemId)
             {
                 case Resource.Id.action_right_drawer:
-                {
-                    if (_drawer != null)
                     {
-                        _drawer.OpenDrawer(GravityCompat.End);
-                        return true;
-                    }
+                        if (_drawer != null)
+                        {
+                            _drawer.OpenDrawer(GravityCompat.End);
+                            return true;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             return base.OnOptionsItemSelected(item);
