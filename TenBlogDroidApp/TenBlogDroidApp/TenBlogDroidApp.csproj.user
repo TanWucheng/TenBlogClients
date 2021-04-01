@@ -5,6 +5,6 @@
     <ActiveDebugProfile>Xiaomi Mi 10 Pro</ActiveDebugProfile>
     <DefaultDevice>Pixel_3a_API_30_x86</DefaultDevice>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
-    <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
+    <AndroidDesignerPreferredDevice>pixel_3a_xl</AndroidDesignerPreferredDevice>
   </PropertyGroup>
 </Project>

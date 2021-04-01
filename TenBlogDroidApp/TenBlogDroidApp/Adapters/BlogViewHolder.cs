@@ -9,19 +9,19 @@ namespace TenBlogDroidApp.Adapters
 {
     public class BlogViewHolder : RecyclerView.ViewHolder
     {
-        public BlogViewHolder(View itemView, Action<RecyclerItemClickEventArgs> onClickAction,
-            Action<RecyclerItemClickEventArgs> onLongClickAction) : base(itemView)
+        public BlogViewHolder(View itemView, Action<ItemClickEventArgs> onClickAction,
+            Action<ItemClickEventArgs> onLongClickAction) : base(itemView)
         {
             IvBlogPicture = itemView.FindViewById<CircleImageView>(Resource.Id.iv_blog_picture);
             TvBlogTitle = itemView.FindViewById<TextView>(Resource.Id.tv_blog_title);
             TvBlogAbstract = itemView.FindViewById<TextView>(Resource.Id.tv_blog_abstract);
             TvBlogPublishCategory = itemView.FindViewById<TextView>(Resource.Id.tv_blog_publish_category);
-            itemView.Click += (_, _) => onClickAction(new RecyclerItemClickEventArgs
+            itemView.Click += (_, _) => onClickAction(new ItemClickEventArgs
             {
                 View = itemView,
                 Position = AdapterPosition
             });
-            itemView.LongClick += (_, _) => onLongClickAction(new RecyclerItemClickEventArgs
+            itemView.LongClick += (_, _) => onLongClickAction(new ItemClickEventArgs
             {
                 View = itemView,
                 Position = AdapterPosition

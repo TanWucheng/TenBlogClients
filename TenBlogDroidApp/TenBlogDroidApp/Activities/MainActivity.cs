@@ -254,7 +254,7 @@ namespace TenBlogDroidApp.Activities
             _searchResultRecyclerView.SetAdapter(_searchResultAdapter);
         }
 
-        private void SearchResultAdapter_ItemClick(object sender, RecyclerItemClickEventArgs e)
+        private void SearchResultAdapter_ItemClick(object sender, ItemClickEventArgs e)
         {
             StartBlogArticleActivity(_searchResults[e.Position].Link);
         }
@@ -297,7 +297,7 @@ namespace TenBlogDroidApp.Activities
             _blogRecyclerView.AddOnScrollListener(new RecyclerFabScrollListener(this));
         }
 
-        private void BlogAdapter_ItemClick(object sender, RecyclerItemClickEventArgs e)
+        private void BlogAdapter_ItemClick(object sender, ItemClickEventArgs e)
         {
             StartBlogArticleActivity(_entries[e.Position].Link);
         }

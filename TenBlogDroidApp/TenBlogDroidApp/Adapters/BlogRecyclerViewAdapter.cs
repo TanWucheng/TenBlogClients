@@ -32,18 +32,18 @@ namespace TenBlogDroidApp.Adapters
         /// <summary>
         ///     Item View点击委托事件
         /// </summary>
-        public event EventHandler<RecyclerItemClickEventArgs> ItemClick = null!;
+        public event EventHandler<ItemClickEventArgs> ItemClick = null!;
 
         /// <summary>
         ///     Item View长按委托事件
         /// </summary>
-        public event EventHandler<RecyclerItemClickEventArgs> ItemLongClick = null!;
+        public event EventHandler<ItemClickEventArgs> ItemLongClick = null!;
 
         /// <summary>
         ///     Item view点击事件
         /// </summary>
         /// <param name="args"></param>
-        protected void OnClick(RecyclerItemClickEventArgs args)
+        protected void OnClick(ItemClickEventArgs args)
         {
             ItemClick?.Invoke(this, args);
         }
@@ -52,7 +52,7 @@ namespace TenBlogDroidApp.Adapters
         ///     Item view长按点击事件
         /// </summary>
         /// <param name="args"></param>
-        protected void OnLongClick(RecyclerItemClickEventArgs args)
+        protected void OnLongClick(ItemClickEventArgs args)
         {
             ItemLongClick?.Invoke(this, args);
         }
