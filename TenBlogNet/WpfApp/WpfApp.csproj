@@ -4,23 +4,53 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net5.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
-		<AssemblyName>TenBlogNet.WpfApp</AssemblyName>
+		<AssemblyName>TenBlogWpfApp</AssemblyName>
 		<RootNamespace>TenBlogNet.WpfApp</RootNamespace>
+		<ApplicationIcon>favicon.ico</ApplicationIcon>
+		<Authors>Ten</Authors>
+		<Product>TenBlogWpfApp</Product>
+		<PackageIcon>favicon.ico</PackageIcon>
+		<PackageReleaseNotes>0.2.2-alpha测试版</PackageReleaseNotes>
+		<Description>我的博客网站Ten's Blog-https://tanwucheng.github.io配套的Windows桌面客户端WPF应用程序</Description>
+		<Version>0.2.2-alpha</Version>
+		<PackageId>TenBlogWpfApp</PackageId>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Remove=".gitignore" />
+		<None Remove="Converters\FlowDocumentToXhtml.xslt" />
+		<None Remove="Converters\XhtmlToFlowDocument.xslt" />
+		<None Remove="Resources\Images\BifengxiaPanda.jpg" />
 		<None Remove="Resources\Images\favicon_200x200.png" />
 		<None Remove="Resources\Images\logo.svg" />
+		<None Remove="Resources\index.html" />
+		<None Remove="Resources\MarkdownSample.md" />
+		<None Include="favicon.ico">
+		  <Pack>True</Pack>
+		  <PackagePath></PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoCompleteTextBox" Version="1.1.1" />
+		<PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.0.87" />
+		<PackageReference Include="Emoji.Wpf" Version="0.3.0" />
+		<PackageReference Include="HtmlToXamlConverter" Version="1.0.5727.24510" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.4" />
+		<PackageReference Include="MailKit" Version="2.11.1" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+		<PackageReference Include="MdXaml" Version="1.9.0" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.824-prerelease" />
+		<PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+		<PackageReference Include="TenBlogCoreLib" Version="1.0.2" />
 		<PackageReference Include="Xaml2Svg" Version="0.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="Resources\Images\BifengxiaPanda.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Resources\Images\favicon_200x200.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
@@ -30,6 +60,18 @@
 		<Content Include="Resources\Images\logo.svg">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Resources\MarkdownSample.md">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Xslt\FlowDocumentToXhtml.xslt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Xslt\XhtmlToFlowDocument.xslt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<EmbeddedResource Include="Resources\index.html">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>

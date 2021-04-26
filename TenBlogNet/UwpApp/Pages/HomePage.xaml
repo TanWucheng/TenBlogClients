@@ -1,0 +1,167 @@
+﻿<Page
+    x:Class="UwpApp.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:UwpApp.Controls"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:domain="using:UwpApp.Domain"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uiControls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:FontAwesome.UWP"
+    xmlns:viewModels="using:UwpApp.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:HomeViewModel}"
+    Background="{ThemeResource RegionBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <domain:DateConverter x:Key="DateConverter" />
+        <DataTemplate x:Key="ContactListViewTemplate" x:DataType="viewModels:EntryViewModel">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:FlipSide
+                    x:Name="FlipSide"
+                    Grid.RowSpan="2"
+                    Width="100"
+                    Height="100"
+                    Margin="8"
+                    IsFlipped="{Binding IsSelected, Mode=TwoWay}">
+                    <controls:FlipSide.Side1>
+                        <ToggleButton
+                            Width="100"
+                            Height="100"
+                            Background="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                            Content="{Binding Code}"
+                            Foreground="{ThemeResource ToggleButtonCheckedForegroundThemeBrush}"
+                            Style="{StaticResource BaseToggleButton}">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="Click">
+                                    <core:ChangePropertyAction
+                                        PropertyName="IsFlipped"
+                                        TargetObject="{Binding ElementName=FlipSide}"
+                                        Value="True" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </ToggleButton>
+                    </controls:FlipSide.Side1>
+                    <controls:FlipSide.Side2>
+                        <ToggleButton
+                            Width="100"
+                            Height="100"
+                            Background="{ThemeResource ToggleButtonCheckedBackgroundThemeBrush}"
+                            Content="🚀"
+                            Foreground="{ThemeResource ToggleButtonCheckedForegroundThemeBrush}"
+                            Style="{StaticResource BaseToggleButton}">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="Click">
+                                    <core:ChangePropertyAction
+                                        PropertyName="IsFlipped"
+                                        TargetObject="{Binding ElementName=FlipSide}"
+                                        Value="False" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </ToggleButton>
+                    </controls:FlipSide.Side2>
+                </controls:FlipSide>
+                <TextBlock
+                    x:Name="TitleTextBlock"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    x:Phase="1"
+                    Style="{ThemeResource TitleTextBlockStyle}"
+                    Text="{x:Bind Entry.Title}" />
+                <RelativePanel
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    HorizontalAlignment="Stretch">
+                    <uwp:FontAwesome x:Name="Upload" Icon="Upload" />
+                    <TextBlock
+                        x:Name="UploadTextBlock"
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        RelativePanel.RightOf="Upload"
+                        Text="{Binding Entry.Published, Converter={StaticResource DateConverter}}"
+                        ToolTipService.ToolTip="提交" />
+                    <uwp:FontAwesome
+                        x:Name="Update"
+                        Margin="16,0,0,0"
+                        Icon="PencilSquare"
+                        RelativePanel.RightOf="UploadTextBlock" />
+                    <TextBlock
+                        x:Name="UpdateTextBlock"
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        RelativePanel.RightOf="Update"
+                        Text="{Binding Entry.Updated, Converter={StaticResource DateConverter}}"
+                        ToolTipService.ToolTip="更新" />
+                    <ItemsControl ItemsSource="{Binding Categories}" RelativePanel.AlignRightWithPanel="True">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:CategoryViewModel">
+                                <StackPanel Margin="0,0,16,0" Orientation="Horizontal">
+                                    <uwp:FontAwesome Icon="{Binding FontAwesomeIcon}" ToolTipService.ToolTip="{Binding Category.Term}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </RelativePanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <uiControls:ProgressBar
+                x:Name="HomeProgressBar"
+                HorizontalAlignment="Stretch"
+                IsIndeterminate="True"
+                ShowError="False"
+                ShowPaused="False" />
+            <Button
+                x:Name="RefreshButton"
+                HorizontalAlignment="Right"
+                Click="RefreshButton_OnClick"
+                Style="{ThemeResource TextBlockButtonStyle}"
+                ToolTipService.ToolTip="刷新列表">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;" />
+            </Button>
+            <uiControls:RefreshContainer x:Name="RefreshContainer" RefreshRequested="RefreshContainer_OnRefreshRequested">
+                <ListView
+                    x:Name="BlogListView"
+                    MaxHeight="570"
+                    IsItemClickEnabled="True"
+                    ItemClick="BlogListView_OnItemClick"
+                    ItemTemplate="{StaticResource ContactListViewTemplate}"
+                    ItemsSource="{Binding Items}"
+                    Loaded="BlogListView_OnLoaded"
+                    SelectionChanged="BlogListView_OnSelectionChanged"
+                    SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition />
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </ListView.ItemContainerTransitions>
+                </ListView>
+            </uiControls:RefreshContainer>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="UwpApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource RegionBrush}"
+    mc:Ignorable="d">
+    <Grid>
+        <muxc:NavigationView
+            x:Name="NavView"
+            BackRequested="NavView_OnBackRequested"
+            ItemInvoked="NavView_OnItemInvoked"
+            Loaded="NavView_OnLoaded">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem
+                    Content="主页"
+                    Icon="Home"
+                    Tag="home" />
+                <muxc:NavigationViewItemSeparator />
+                <muxc:NavigationViewItemHeader x:Name="ToolPagesHeader" Content="工具" />
+                <muxc:NavigationViewItem Content="关于" Tag="about">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem
+                    Content="Music"
+                    Icon="Audio"
+                    Tag="music" />
+            </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.AutoSuggestBox>
+                <!--
+                    See AutoSuggestBox documentation for
+                    more info about how to implement search.
+                -->
+                <AutoSuggestBox
+                    x:Name="NavViewSearchBox"
+                    x:FieldModifier="public"
+                    DisplayMemberPath="Title"
+                    KeyboardAcceleratorPlacementMode="Hidden"
+                    PlaceholderText="博客标题"
+                    QueryIcon="Find"
+                    QuerySubmitted="NavViewSearchBox_OnQuerySubmitted"
+                    TextChanged="NavViewSearchBox_OnTextChanged"
+                    TextMemberPath="Title" />
+            </muxc:NavigationView.AutoSuggestBox>
+
+            <ScrollViewer
+                x:Name="MainPageScrollViewer"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+                <Frame
+                    x:Name="ContentFrame"
+                    Padding="12,0,12,24"
+                    IsTabStop="True"
+                    NavigationFailed="ContentFrame_OnNavigationFailed" />
+            </ScrollViewer>
+        </muxc:NavigationView>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{x:Bind NavViewCompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  Remove the next 3 lines for left-only navigation.  -->
+                        <Setter Target="NavView.PaneDisplayMode" Value="Top" />
+                        <Setter Target="NavViewSearchBox.Width" Value="200" />
+                        <Setter Target="ToolPagesHeader.Visibility" Value="Collapsed" />
+                        <!--  Leave the next line for left-only navigation.  -->
+                        <Setter Target="ContentFrame.Padding" Value="24,0,24,24" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:domain="clr-namespace:TenBlogNet.WpfApp.Domain">
 
     <Style x:Key="GradientUnderlineTextBlock" TargetType="TextBlock">
         <Setter Property="Margin" Value="0" />
@@ -49,92 +52,37 @@
         </Setter>
     </Style>
 
-    <!--  简单自定义  -->
-    <Style x:Key="WindowStyle1" TargetType="{x:Type Window}">
-        <Setter Property="WindowChrome.WindowChrome">
-            <Setter.Value>
-                <WindowChrome CaptionHeight="30" GlassFrameThickness="0,30,0,0" />
-            </Setter.Value>
-        </Setter>
+    <Style x:Key="AutoCompleteTextBoxStyle" TargetType="domain:AutoTextBox">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Window}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <AdornerDecorator>
-                            <Grid Name="win_content">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition x:Name="row_title" Height="30" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <ContentPresenter Grid.Row="1" />
-                                <TextBlock
-                                    Grid.Row="0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Text="{TemplateBinding Title}" />
-                            </Grid>
-                        </AdornerDecorator>
+                <ControlTemplate TargetType="{x:Type domain:AutoTextBox}">
+                    <Border x:Name="AutoCompleteBorder" SnapsToDevicePixels="True">
+                        <Grid>
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                VerticalAlignment="Center"
+                                Foreground="{TemplateBinding Foreground}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Popup
+                                x:Name="PART_Popup"
+                                AllowsTransparency="true"
+                                IsOpen="False"
+                                Placement="Bottom"
+                                PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                                <ListBox
+                                    x:Name="PART_ItemList"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    Style="{DynamicResource MaterialDesignListBox}" />
+                            </Popup>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="WindowState" Value="Maximized">
-                            <!--<Setter Property="Margin" TargetName="win_content" Value="8"/>-->
-
-                            <Setter TargetName="win_content" Property="MaxWidth" Value="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}" />
-                            <Setter TargetName="win_content" Property="MaxHeight" Value="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}" />
-
-                            <Setter TargetName="row_title" Property="Height" Value="22" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <!--  完全自定义  -->
-    <Style x:Key="WindowStyle2" TargetType="{x:Type Window}">
-        <Setter Property="WindowChrome.WindowChrome">
-            <Setter.Value>
-                <WindowChrome
-                    CaptionHeight="30"
-                    CornerRadius="10"
-                    GlassFrameThickness="0"
-                    ResizeBorderThickness="8"
-                    UseAeroCaptionButtons="False" />
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Window}">
-                    <!--<Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <AdornerDecorator>
-                            <ContentPresenter x:Name="win_content" />
-                        </AdornerDecorator>
-                    </Border>-->
-                    <Grid Margin="10">
-                        <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-                            <Rectangle.Effect>
-                                <DropShadowEffect
-                                    BlurRadius="10"
-                                    ShadowDepth="0"
-                                    Color="Gray" />
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                            <AdornerDecorator>
-                                <ContentPresenter x:Name="win_content" />
-                            </AdornerDecorator>
-                        </Border>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="win_content" Property="Margin" Value="8" />
-                        </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
+                            <Setter TargetName="PART_Popup" Property="IsOpen" Value="True" />
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

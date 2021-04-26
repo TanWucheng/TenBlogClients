@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     Background="{DynamicResource MaterialDesignPaper}"
+    Loaded="AboutDialog_OnLoaded"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -16,77 +17,95 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid MinWidth="320">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid>
-            <Image
-                Width="96"
-                Height="96"
-                Margin="0,24"
-                HorizontalAlignment="Center"
-                Source="pack://application:,,,/Resources/Images/favicon_200x200.png" />
-        </Grid>
-        <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            Orientation="Vertical">
-            <TextBlock HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                Ten's Blog客户端
-            </TextBlock>
-            <StackPanel
-                Margin="0,4,0,0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock>由</TextBlock>
-                <TextBlock FontSize="9">
-                    <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://dotnet.microsoft.com/download">.Net Core WPF</Hyperlink>
-                </TextBlock>
-                <TextBlock FontSize="9">驱动</TextBlock>
-            </StackPanel>
-            <StackPanel
-                Margin="0,4,0,0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock FontSize="9">用户界面基于</TextBlock>
-                <TextBlock FontSize="9">
-                    <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design In XAML Toolkit</Hyperlink>
-                </TextBlock>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="2"
-            Margin="0,24,0,0"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <TextBlock>
-                版本 1.0.0
-            </TextBlock>
-            <TextBlock>(</TextBlock>
-            <TextBlock>
-                <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://github.com/TanWucheng">发布日志</Hyperlink>
-            </TextBlock>
-            <TextBlock>)</TextBlock>
-        </StackPanel>
-        <Border
-            Grid.Row="3"
-            Margin="0,24,0,0"
-            BorderBrush="{DynamicResource MaterialDesignDivider}"
-            BorderThickness="0,1,0,0" />
-        <Button
-            Grid.Row="4"
-            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-            IsCancel="True"
-            Style="{DynamicResource MaterialDesignFlatButton}">
-            <Button.CommandParameter>
-                <system:Boolean>False</system:Boolean>
-            </Button.CommandParameter>
-            关闭
-        </Button>
+    <Grid>
+        <materialDesign:Card Width="320">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image
+                    Height="180"
+                    Source="{StaticResource BifengxiaPanda}"
+                    Stretch="UniformToFill" />
+                <Button
+                    Grid.Row="0"
+                    Margin="0,0,16,-20"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="ShareVariant" />
+                </Button>
+                <StackPanel Grid.Row="1" Margin="8,24,8,4">
+                    <Image
+                        Width="96"
+                        Margin="0,0,0,24"
+                        HorizontalAlignment="Center"
+                        Source="pack://application:,,,/Resources/Images/favicon_200x200.png" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline5TextBlock}">
+                            Ten's Blog客户端
+                        </TextBlock>
+                        <StackPanel
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock>由</TextBlock>
+                            <TextBlock>
+                                <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://dotnet.microsoft.com/download">.Net Core WPF</Hyperlink>
+                            </TextBlock>
+                            <TextBlock>驱动</TextBlock>
+                        </StackPanel>
+                        <StackPanel
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock>用户界面基于</TextBlock>
+                            <TextBlock>
+                                <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design In XAML Toolkit</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel
+                        Margin="0,24,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">当前版本</TextBlock>
+                        <TextBlock VerticalAlignment="Center">
+                            <Hyperlink
+                                x:Name="VersionHyperlink"
+                                Click="Hyperlink_OnClick"
+                                NavigateUri="https://github.com/TanWucheng/TenBlogClients/releases/latest">
+                                0.2.2-alpha
+                            </Hyperlink>
+                        </TextBlock>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" Tag="https://code.visualstudio.com/docs/languages/markdown">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Update" />
+                                <TextBlock VerticalAlignment="Center">检查更新</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <Separator
+                    Grid.Row="2"
+                    Margin="8,0,8,0"
+                    Style="{StaticResource MaterialDesignDarkSeparator}" />
+                <StackPanel Grid.Row="3">
+                    <Button
+                        Margin="8,4,8,8"
+                        HorizontalAlignment="Center"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        Content="关闭"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <Button.CommandParameter>
+                            <system:Boolean>False</system:Boolean>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

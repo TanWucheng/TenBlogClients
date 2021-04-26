@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using TenBlogCoreLib.Extensions;
 
 namespace TenBlogNet.WpfApp.Domain
 {

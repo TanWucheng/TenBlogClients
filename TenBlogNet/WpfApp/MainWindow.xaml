@@ -4,12 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:domain="clr-namespace:TenBlogNet.WpfApp.Domain"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:TenBlogNet.WpfApp.Models"
+    xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
+    xmlns:viewModels="clr-namespace:TenBlogNet.WpfApp.ViewModels"
     Title="MainWindow"
     MinWidth="800"
     MinHeight="600"
-    d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel}"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     BorderThickness="0"
@@ -24,6 +28,15 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,14 +45,23 @@
         <Grid
             Name="ToolBar"
             Grid.Row="0"
-            Background="#673AB7"
+            Background="{DynamicResource PrimaryHueMidBrush}"
             MouseDown="ToolBar_OnMouseDown"
             MouseMove="ToolBar_OnMouseMove">
-            <TextBlock
+
+            <StackPanel
                 Margin="8,8,0,0"
                 HorizontalAlignment="Left"
-                Foreground="White"
-                Text="Ten's Blog" />
+                Orientation="Horizontal">
+                <Image
+                    Width="18"
+                    Height="18"
+                    Source="{StaticResource Favicon200X200}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                    Text="Ten's Blog" />
+            </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
                     x:Name="ButtonWinMin"
@@ -48,7 +70,7 @@
                     HorizontalAlignment="Right"
                     materialDesign:RippleAssist.IsCentered="True"
                     Click="ButtonWinMin_OnClick"
-                    Foreground="White"
+                    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                     <materialDesign:PackIcon Kind="WindowMinimize" />
                 </Button>
@@ -59,7 +81,7 @@
                     HorizontalAlignment="Right"
                     materialDesign:RippleAssist.IsCentered="True"
                     Click="ButtonWinMax_OnClick"
-                    Foreground="White"
+                    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                     <materialDesign:PackIcon Kind="WindowMaximize" />
                 </Button>
@@ -70,13 +92,14 @@
                     HorizontalAlignment="Right"
                     materialDesign:RippleAssist.IsCentered="True"
                     Click="ButtonWinClose_OnClick"
-                    Foreground="White"
+                    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                     <materialDesign:PackIcon Kind="WindowClose" />
                 </Button>
             </StackPanel>
         </Grid>
         <materialDesign:DialogHost
+            x:Name="RootDialog"
             Grid.Row="1"
             Identifier="RootDialog"
             SnackbarMessageQueue="{Binding ElementName=MainSnackBar, Path=MessageQueue}">
@@ -93,23 +116,23 @@
                             x:Name="NavItemsSearchBox"
                             Width="200"
                             Margin="16,4"
-                            materialDesign:HintAssist.Hint="Search"
+                            materialDesign:HintAssist.Hint="搜索"
                             materialDesign:HintAssist.IsFloating="True"
                             materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                             materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
-                            BorderThickness="0"
                             DockPanel.Dock="Top"
-                            Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding SearchNavKeyword, UpdateSourceTrigger=PropertyChanged}" />
                         <ListBox
                             x:Name="NavItemsListBox"
                             Margin="0,16,0,16"
                             AutomationProperties.Name="NavigationListBox"
                             ItemsSource="{Binding NavItems}"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
-                            SelectedIndex="{Binding SelectedIndex}"
-                            SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                            SelectedIndex="{Binding SelectedNavIndex}"
+                            SelectedItem="{Binding SelectedNavItem, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="NavItemsListBox_OnSelectionChanged">
                             <ListBox.Resources>
                                 <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
                             </ListBox.Resources>
@@ -151,7 +174,7 @@
                                                                           Size=24}"
                                         Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                                         Style="{DynamicResource MaterialDesignToolButton}"
-                                        ToolTip="Previous Item" />
+                                        ToolTip="上一页面" />
                                     <Button
                                         Margin="8,0,0,0"
                                         materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
@@ -160,7 +183,7 @@
                                                                           Size=24}"
                                         Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                                         Style="{DynamicResource MaterialDesignToolButton}"
-                                        ToolTip="Next Item" />
+                                        ToolTip="下一页面" />
                                 </StackPanel>
                                 <materialDesign:PopupBox
                                     DockPanel.Dock="Right"
@@ -172,7 +195,10 @@
                                             HorizontalAlignment="Center"
                                             Orientation="Horizontal">
                                             <TextBlock Margin="0,0,10,0" Text="亮" />
-                                            <ToggleButton x:Name="DarkModeToggleButton" />
+                                            <ToggleButton
+                                                x:Name="DarkModeToggleButton"
+                                                Command="{Binding SwitchThemeCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
                                             <TextBlock Margin="10,0,0,0" Text="暗" />
                                         </StackPanel>
                                         <Separator />
@@ -192,18 +218,110 @@
                                                     Width="18"
                                                     Height="18"
                                                     Kind="About" />
-                                                <TextBlock FontSize="18">关于</TextBlock>
+                                                <TextBlock x:Name="AboutTextBlock" FontSize="18">关于</TextBlock>
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
                                 </materialDesign:PopupBox>
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    AutomationProperties.Name="欢迎访问我的博客"
-                                    FontSize="22">
-                                    欢迎访问我的博客
-                                </TextBlock>
+                                <materialDesign:Transitioner
+                                    x:Name="MainTransitioner"
+                                    AutoApplyTransitionOrigins="True"
+                                    SelectedIndex="0">
+                                    <materialDesign:Transitioner.InputBindings>
+                                        <KeyBinding Key="Left" Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" />
+                                        <KeyBinding Key="Right" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" />
+                                    </materialDesign:Transitioner.InputBindings>
+
+                                    <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect FadeIn}">
+                                        <DockPanel HorizontalAlignment="Stretch">
+                                            <Grid DockPanel.Dock="Left" />
+                                            <Button
+                                                x:Name="SearchBlogButton"
+                                                Panel.ZIndex="0"
+                                                Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
+                                                DockPanel.Dock="Right"
+                                                Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                                                ToolTip="搜索博文">
+                                                <materialDesign:PackIcon Kind="Search" />
+                                            </Button>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                AutomationProperties.Name="欢迎访问我的博客"
+                                                FontSize="22">
+                                                欢迎访问我的博客
+                                            </TextBlock>
+                                        </DockPanel>
+                                    </materialDesign:TransitionerSlide>
+
+                                    <materialDesign:ColorZone
+                                        Margin="16,0,0,0"
+                                        Padding="8,4,8,4"
+                                        Panel.ZIndex="1"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                        CornerRadius="2"
+                                        Mode="Standard">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                                <materialDesign:PackIcon Kind="Search" Opacity=".56" />
+                                            </Button>
+                                            <toolkit:AutoCompleteBox
+                                                x:Name="SearchTextBox"
+                                                Grid.Column="1"
+                                                Margin="8,0,0,0"
+                                                materialDesign:HintAssist.Hint="标题"
+                                                Background="{DynamicResource MaterialDesignPaper}"
+                                                BorderThickness="0"
+                                                FilterMode="ContainsOrdinal"
+                                                Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                                ItemsSource="{Binding BlogSearchItems}"
+                                                SelectionChanged="SearchTextBox_OnSelectionChanged"
+                                                TextBoxStyle="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                                ValueMemberPath="Title">
+                                                <toolkit:AutoCompleteBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type models:BlogSearchModel}">
+                                                        <TextBlock Text="{Binding Title}" />
+                                                    </DataTemplate>
+                                                </toolkit:AutoCompleteBox.ItemTemplate>
+                                                <!--<i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.SearchResultItemSelectCommand, RelativeSource={RelativeSource AncestorType=Window, AncestorLevel=1}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <Binding ElementName="SearchTextBox" Path="SelectedItem" />
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>-->
+                                            </toolkit:AutoCompleteBox>
+                                            <Button
+                                                Grid.Column="2"
+                                                Command="{Binding ClearSearchTextBoxCommand}"
+                                                CommandParameter="{Binding ElementName=SearchTextBox}"
+                                                Style="{DynamicResource MaterialDesignToolButton}">
+                                                <materialDesign:PackIcon
+                                                    Margin="8,0,0,0"
+                                                    Kind="Clear"
+                                                    Opacity=".56" />
+                                            </Button>
+                                            <Button
+                                                Grid.Column="3"
+                                                Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}"
+                                                Style="{DynamicResource MaterialDesignToolButton}">
+                                                <materialDesign:PackIcon
+                                                    Margin="8,0,0,0"
+                                                    Kind="Close"
+                                                    Opacity=".56" />
+                                            </Button>
+                                        </Grid>
+                                    </materialDesign:ColorZone>
+
+                                </materialDesign:Transitioner>
                             </DockPanel>
                         </Grid>
                     </materialDesign:ColorZone>
@@ -213,12 +331,13 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <ScrollViewer
+                            x:Name="RootScrollViewer"
                             Grid.Row="1"
                             Padding="{Binding ElementName=NavItemsListBox, Path=SelectedItem.MarginRequirement}"
                             materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
                             HorizontalScrollBarVisibility="{Binding ElementName=NavItemsListBox, Path=SelectedItem.HorizontalScrollBarVisibilityRequirement}"
                             VerticalScrollBarVisibility="{Binding ElementName=NavItemsListBox, Path=SelectedItem.VerticalScrollBarVisibilityRequirement}">
-                            <ContentControl Content="{Binding SelectedItem.Content, UpdateSourceTrigger=PropertyChanged}" />
+                            <ContentControl Content="{Binding SelectedNavItem.Content, UpdateSourceTrigger=PropertyChanged}" />
                         </ScrollViewer>
 
                         <materialDesign:Snackbar

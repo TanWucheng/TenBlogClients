@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="TenBlogNet.WpfApp.Widget.SimpleMessageDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    MaxWidth="400"
+    MaxHeight="400"
+    d:DesignHeight="400"
+    d:DesignWidth="400"
+    Background="{DynamicResource MaterialDesignPaper}"
+    mc:Ignorable="d">
+    <StackPanel Margin="16">
+        <TextBlock
+            x:Name="TitleTextBlock"
+            Padding="4,8"
+            Style="{DynamicResource MaterialDesignHeadline5TextBlock}">
+            标题
+        </TextBlock>
+        <TextBlock
+            x:Name="MessageTextBlock"
+            Padding="4,8"
+            Style="{DynamicResource MaterialDesignBody1TextBlock}">
+            内容
+        </TextBlock>
+        <Button
+            HorizontalAlignment="Center"
+            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+            CommandParameter="Sample2Cancel"
+            Content="关闭"
+            IsCancel="True"
+            Style="{StaticResource MaterialDesignFlatButton}" />
+    </StackPanel>
+</UserControl>

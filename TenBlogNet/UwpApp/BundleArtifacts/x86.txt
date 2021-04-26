@@ -1,0 +1,2 @@
+MainPackage=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x86\Release\UwpApp_0.2.2.0_x86.msix
+SymbolPackage=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\obj\x86\Release\Symbols\UwpApp_0.2.2.0_x86.appxsym

@@ -1,16 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup>
+    <ShowAllFiles>false</ShowAllFiles>
+    <_LastSelectedProfileId>D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\WpfApp\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
   <ItemGroup>
     <ApplicationDefinition Update="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\ContactFeedback.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\Home.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Widget\AboutDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Widget\SimpleMessageDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Widget\SimpleProgressDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -18,7 +30,7 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\Images\Images.xaml">
+    <Page Update="Resources\Images\images.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Resources.xaml">
@@ -27,10 +39,19 @@
     <Page Update="Resources\Styles.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\ContactFeedback.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\Home.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Widget\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Widget\SimpleMessageDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Widget\SimpleProgressDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

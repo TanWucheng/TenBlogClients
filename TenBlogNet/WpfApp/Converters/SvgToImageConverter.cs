@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Data;
 using Svg2Xaml;
 
-namespace TenBlogNet.WpfApp.Domain
+namespace TenBlogNet.WpfApp.Converters
 {
     internal class SvgToImageConverter : IValueConverter
     {

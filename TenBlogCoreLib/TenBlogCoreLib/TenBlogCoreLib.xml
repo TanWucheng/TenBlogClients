@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TenBlogCoreLib</name>
+    </assembly>
+    <members>
+        <member name="T:TenBlogCoreLib.Extensions.NotifyPropertyChangedExtension">
+            <summary>
+            INotifyPropertyChanged接口扩展
+            </summary>
+        </member>
+        <member name="M:TenBlogCoreLib.Extensions.NotifyPropertyChangedExtension.MutateVerbose``1(System.ComponentModel.INotifyPropertyChanged,``0@,``0,System.Action{System.ComponentModel.PropertyChangedEventArgs},System.String)">
+            <summary>
+            MutateVerbose
+            </summary>
+            <typeparam name="TField"></typeparam>
+            <param name="_"></param>
+            <param name="field"></param>
+            <param name="newValue"></param>
+            <param name="raise"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="F:TenBlogCoreLib.Models.Constants.BlogUrl">
+            <summary>
+                博客网站地址
+            </summary>
+        </member>
+        <member name="F:TenBlogCoreLib.Models.Constants.Blog404Url">
+            <summary>
+                博客网站404页面
+            </summary>
+        </member>
+        <member name="F:TenBlogCoreLib.Models.Constants.IssuesUrl">
+            <summary>
+                Github问题反馈URL
+            </summary>
+        </member>
+        <member name="F:TenBlogCoreLib.Models.Constants.BlogRssUrl">
+            <summary>
+                博客RSS订阅地址
+            </summary>
+        </member>
+        <member name="F:TenBlogCoreLib.Models.Constants.MailToMe">
+            <summary>
+                邮件发送URL
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Models.Author">
+            <summary>
+            RSS订阅源所有者模型
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Author.Name">
+            <summary>
+            RSS订阅源所有者名字
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Models.Category">
+            <summary>
+            文章分类
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Category.Term">
+            <summary>
+            分类名称
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Category.Scheme">
+            <summary>
+            分类Http链接
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Models.Entry">
+            <summary>
+            RSS入口(文章)模型
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Link">
+            <summary>
+            http链接
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Id">
+            <summary>
+            文章id
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Published">
+            <summary>
+            文章发布日期时间
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Updated">
+            <summary>
+            文章更新日期时间
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Summary">
+            <summary>
+            文章模型
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Entry.Categories">
+            <summary>
+            文章分类清单
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Models.Feed">
+            <summary>
+            Rss订阅源的模型
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Title">
+            <summary>
+            订阅源的标题
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Icon">
+            <summary>
+            订阅源的图标url
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Subtitle">
+            <summary>
+            订阅源副标题
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.SelfLink">
+            <summary>
+            订阅源XML本身的链接
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Link">
+            <summary>
+            网站源地址
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Updated">
+            <summary>
+            订阅源XML更新日期时间
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Id">
+            <summary>
+            订阅源id
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Author">
+            <summary>
+            RSS订阅源所有者信息
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Feed.Entries">
+            <summary>
+            RSS入口(文章)清单
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Models.Summary">
+            <summary>
+            文章内容模型
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Summary.SummaryType">
+            <summary>
+            文章类别
+            </summary>
+        </member>
+        <member name="P:TenBlogCoreLib.RssSubscriber.Models.Summary.Content">
+            <summary>
+            文章内容
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Models.SummaryType">
+            <summary>
+            文章内容类别
+            </summary>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.RssSubscribeService">
+            <summary>
+            RSS订阅查询服务
+            </summary>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.RssSubscribeService.GetBlogEntries(System.String,System.Int32,System.Boolean)">
+            <summary>
+            订阅RSS，获取博客文章清单
+            </summary>
+            <param name="filePath">文件父级路径</param>
+            <param name="articleCount">文章数量</param>
+            <param name="doHttpRequest">是否执行HTTP请求获取最新订阅，如果是则用HTTP响应数据覆盖本地缓存XML，如果不是则直接读取本地缓存XML</param>
+        </member>
+        <member name="T:TenBlogCoreLib.RssSubscriber.Subscriber">
+            <summary>
+                RSS订阅器
+            </summary>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.Subscriber.Subscribe(System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+                订阅RSS
+            </summary>
+            <param name="rssUrl">RSS订阅源URL，文件系统路径或者HTTP链接</param>
+            <param name="filePath">文件父级路径</param>
+            <param name="articleCount">文章数量</param>
+            <param name="doHttpRequest">是否执行HTTP请求获取最新订阅，如果是则用HTTP响应数据覆盖本地缓存XML，如果不是则直接读取本地缓存XML</param>
+            <returns></returns>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.Subscriber.ReadCacheRssXmlAsync(System.String)">
+            <summary>
+                读取本地RSS订阅XML缓存文件
+            </summary>
+            <param name="filePath">文件父级路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.Subscriber.WriteCacheRssXmlAsync(System.String,System.String)">
+            <summary>
+                保存RSS订阅XML为本地文件
+            </summary>
+            <param name="filePath">文件父级路径</param>
+            <param name="xml">XML内容</param>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.Subscriber.HttpRequestRssFeedAsync(System.String)">
+            <summary>
+                执行HTTP请求获取RSS订阅XML
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.Subscriber.ReadFeed(System.Xml.XmlNode,System.Int32)">
+            <summary>
+                读取RSS订阅信息XML节点
+            </summary>
+            <param name="feedNode">RSS Feed节点</param>
+            <param name="articleCount">文章数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:TenBlogCoreLib.RssSubscriber.Subscriber.ReadEntries(System.Collections.Generic.List{System.Xml.XmlNode},System.Int32)">
+            <summary>
+                读取文章信息
+            </summary>
+            <param name="entryNodes">文章节点清单</param>
+            <param name="articleCount">文章数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:TenBlogCoreLib.Utils.FileBinaryConverter.File2Bytes(System.String)">
+            <summary>
+            将文件转换为byte数组
+            </summary>
+            <param name="path">文件地址</param>
+            <returns>转换后的byte数组</returns>
+        </member>
+        <member name="M:TenBlogCoreLib.Utils.FileBinaryConverter.Bytes2File(System.Byte[],System.String)">
+            <summary>
+            将byte数组转换为文件并保存到指定地址
+            </summary>
+            <param name="buff">byte数组</param>
+            <param name="savPath">保存地址</param>
+        </member>
+    </members>
+</doc>
