@@ -42,7 +42,7 @@ namespace TenBlogNet.WpfApp.UserControls
         private async void DialogOpenedEventHandler(object sender, DialogOpenedEventArgs eventArgs)
         {
             var path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            var entries = await RssSubscribeService.GetBlogEntries(path);
+            var entries = await RssSubscribeService.GetBlogEntries(path, doHttpRequest: true);
             var blogSearchItems = new List<BlogSearchModel>();
             foreach (var entry in entries)
             {

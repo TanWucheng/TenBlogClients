@@ -35,34 +35,43 @@ namespace TenBlogCoreLib.RssSubscriber
 
             if (doHttpRequest)
             {
-                var xml = await HttpRequestRssFeedAsync(rssUrl);
-                xmlDoc.LoadXml(xml);
                 try
                 {
+                    var xml = await HttpRequestRssFeedAsync(rssUrl);
+                    xmlDoc.LoadXml(xml);
                     WriteCacheRssXmlAsync(filePath, xml);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    try
+                    {
+                        var xml = await ReadCacheRssXmlAsync(filePath);
+                        xmlDoc.LoadXml(xml);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                 }
             }
             else
             {
-                var xml = await ReadCacheRssXmlAsync(filePath);
-                if (string.IsNullOrWhiteSpace(xml))
+                try
                 {
-                    xml = await HttpRequestRssFeedAsync(rssUrl);
-                    try
+                    var xml = await ReadCacheRssXmlAsync(filePath);
+                    if (string.IsNullOrWhiteSpace(xml))
                     {
+                        xml = await HttpRequestRssFeedAsync(rssUrl);
                         WriteCacheRssXmlAsync(filePath, xml);
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-                }
 
-                xmlDoc.LoadXml(xml);
+                    xmlDoc.LoadXml(xml);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
 
             if (!xmlDoc.HasChildNodes) return null;
@@ -72,9 +81,9 @@ namespace TenBlogCoreLib.RssSubscriber
                 switch (child.Name.ToLower())
                 {
                     case "feed":
-                    {
-                        return ReadFeed(child, articleCount);
-                    }
+                        {
+                            return ReadFeed(child, articleCount);
+                        }
                 }
 
             return null;
@@ -138,51 +147,51 @@ namespace TenBlogCoreLib.RssSubscriber
                 switch (feedChildNode.Name.ToLower())
                 {
                     case "title":
-                    {
-                        feed.Title = feedChildNode.InnerText;
-                        break;
-                    }
-                    case "icon":
-                    {
-                        feed.Icon = feedChildNode.InnerText;
-                        break;
-                    }
-                    case "subtitle":
-                    {
-                        feed.Subtitle = feedChildNode.InnerText;
-                        break;
-                    }
-                    case "link":
-                    {
-                        if (feedChildNode.Attributes != null)
                         {
-                            if (feedChildNode.Attributes["rel"] != null &&
-                                feedChildNode.Attributes["rel"].Value == "self")
-                                feed.SelfLink = feedChildNode.Attributes["href"]?.Value;
-                            else
-                                feed.Link = feedChildNode.Attributes["href"]?.Value;
+                            feed.Title = feedChildNode.InnerText;
+                            break;
                         }
-
-                        break;
-                    }
-                    case "id":
-                    {
-                        feed.Id = feedChildNode.InnerText;
-                        break;
-                    }
-                    case "author":
-                    {
-                        authors.Add(new Author
+                    case "icon":
                         {
-                            Name = feedChildNode.InnerText
-                        });
-                        break;
-                    }
+                            feed.Icon = feedChildNode.InnerText;
+                            break;
+                        }
+                    case "subtitle":
+                        {
+                            feed.Subtitle = feedChildNode.InnerText;
+                            break;
+                        }
+                    case "link":
+                        {
+                            if (feedChildNode.Attributes != null)
+                            {
+                                if (feedChildNode.Attributes["rel"] != null &&
+                                    feedChildNode.Attributes["rel"].Value == "self")
+                                    feed.SelfLink = feedChildNode.Attributes["href"]?.Value;
+                                else
+                                    feed.Link = feedChildNode.Attributes["href"]?.Value;
+                            }
+
+                            break;
+                        }
+                    case "id":
+                        {
+                            feed.Id = feedChildNode.InnerText;
+                            break;
+                        }
+                    case "author":
+                        {
+                            authors.Add(new Author
+                            {
+                                Name = feedChildNode.InnerText
+                            });
+                            break;
+                        }
                     case "entry":
-                    {
-                        entryChildNodes.Add(feedChildNode);
-                        break;
-                    }
+                        {
+                            entryChildNodes.Add(feedChildNode);
+                            break;
+                        }
                 }
 
             var entries = ReadEntries(entryChildNodes, articleCount);
@@ -215,71 +224,71 @@ namespace TenBlogCoreLib.RssSubscriber
                             switch (entryChildNode.Name.ToLower())
                             {
                                 case "title":
-                                {
-                                    entry.Title = entryChildNode.InnerText;
-                                    break;
-                                }
+                                    {
+                                        entry.Title = entryChildNode.InnerText;
+                                        break;
+                                    }
                                 case "link":
-                                {
-                                    if (entryChildNode.Attributes != null)
                                     {
-                                        var href = entryChildNode.Attributes["href"]?.Value;
-                                        entry.Link = href;
-                                    }
-
-                                    break;
-                                }
-                                case "id":
-                                {
-                                    entry.Id = entryChildNode.InnerText;
-                                    break;
-                                }
-                                case "published":
-                                {
-                                    if (DateTime.TryParse(entryChildNode.InnerText, out var published))
-                                        entry.Published = published;
-                                    break;
-                                }
-                                case "updated":
-                                {
-                                    if (DateTime.TryParse(entryChildNode.InnerText, out var updated))
-                                        entry.Updated = updated;
-                                    break;
-                                }
-                                case "summary":
-                                {
-                                    var summaryType = SummaryType.Plain;
-                                    if (entryChildNode.Attributes != null)
-                                    {
-                                        var type = entryChildNode.Attributes["type"]?.Value;
-                                        summaryType =
-                                            EnumParser<SummaryType>.Parse(type!, SummaryType.Plain);
-                                    }
-
-                                    var summary = new Summary
-                                    {
-                                        Content = entryChildNode.InnerText,
-                                        SummaryType = summaryType
-                                    };
-                                    entry.Summary = summary;
-                                    break;
-                                }
-                                case "category":
-                                {
-                                    if (entryChildNode.Attributes != null)
-                                    {
-                                        var term = entryChildNode.Attributes["term"]?.Value;
-                                        var scheme = entryChildNode.Attributes["scheme"]?.Value;
-                                        var category = new Category
+                                        if (entryChildNode.Attributes != null)
                                         {
-                                            Scheme = scheme,
-                                            Term = term
-                                        };
-                                        categories.Add(category);
-                                    }
+                                            var href = entryChildNode.Attributes["href"]?.Value;
+                                            entry.Link = href;
+                                        }
 
-                                    break;
-                                }
+                                        break;
+                                    }
+                                case "id":
+                                    {
+                                        entry.Id = entryChildNode.InnerText;
+                                        break;
+                                    }
+                                case "published":
+                                    {
+                                        if (DateTime.TryParse(entryChildNode.InnerText, out var published))
+                                            entry.Published = published;
+                                        break;
+                                    }
+                                case "updated":
+                                    {
+                                        if (DateTime.TryParse(entryChildNode.InnerText, out var updated))
+                                            entry.Updated = updated;
+                                        break;
+                                    }
+                                case "summary":
+                                    {
+                                        var summaryType = SummaryType.Plain;
+                                        if (entryChildNode.Attributes != null)
+                                        {
+                                            var type = entryChildNode.Attributes["type"]?.Value;
+                                            summaryType =
+                                                EnumParser<SummaryType>.Parse(type!, SummaryType.Plain);
+                                        }
+
+                                        var summary = new Summary
+                                        {
+                                            Content = entryChildNode.InnerText,
+                                            SummaryType = summaryType
+                                        };
+                                        entry.Summary = summary;
+                                        break;
+                                    }
+                                case "category":
+                                    {
+                                        if (entryChildNode.Attributes != null)
+                                        {
+                                            var term = entryChildNode.Attributes["term"]?.Value;
+                                            var scheme = entryChildNode.Attributes["scheme"]?.Value;
+                                            var category = new Category
+                                            {
+                                                Scheme = scheme,
+                                                Term = term
+                                            };
+                                            categories.Add(category);
+                                        }
+
+                                        break;
+                                    }
                             }
 
                         entry.Categories = categories;

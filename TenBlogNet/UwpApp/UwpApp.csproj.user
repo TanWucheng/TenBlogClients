@@ -4,8 +4,8 @@
     <ProjectView>ProjectFiles</ProjectView>
     <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
     <AppxShowAllApps>False</AppxShowAllApps>
-    <AppxBuildConfigurationSelection>x86|x64</AppxBuildConfigurationSelection>
-    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
+    <AppxBuildConfigurationSelection>x86</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DeviceId>30f105c9-681e-420b-a277-7c086ead8a4e</DeviceId>

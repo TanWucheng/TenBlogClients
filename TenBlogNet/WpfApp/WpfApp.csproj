@@ -10,9 +10,9 @@
 		<Authors>Ten</Authors>
 		<Product>TenBlogWpfApp</Product>
 		<PackageIcon>favicon.ico</PackageIcon>
-		<PackageReleaseNotes>0.2.2-alpha测试版</PackageReleaseNotes>
+		<PackageReleaseNotes>1.0.2-开发版</PackageReleaseNotes>
 		<Description>我的博客网站Ten's Blog-https://tanwucheng.github.io配套的Windows桌面客户端WPF应用程序</Description>
-		<Version>0.2.2-alpha</Version>
+		<Version>1.0.2</Version>
 		<PackageId>TenBlogWpfApp</PackageId>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -34,16 +34,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoCompleteTextBox" Version="1.1.1" />
-		<PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.0.87" />
-		<PackageReference Include="Emoji.Wpf" Version="0.3.0" />
+		<PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.0.90" />
+		<PackageReference Include="Emoji.Wpf" Version="0.3.3" />
 		<PackageReference Include="HtmlToXamlConverter" Version="1.0.5727.24510" />
-		<PackageReference Include="MahApps.Metro" Version="2.4.4" />
-		<PackageReference Include="MailKit" Version="2.11.1" />
-		<PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
-		<PackageReference Include="MdXaml" Version="1.9.0" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.824-prerelease" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.7" />
+		<PackageReference Include="MailKit" Version="2.13.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+		<PackageReference Include="MdXaml" Version="1.11.0" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
 		<PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
-		<PackageReference Include="TenBlogCoreLib" Version="1.0.2" />
+		<PackageReference Include="TenBlogCoreLib" Version="1.0.3" />
 		<PackageReference Include="Xaml2Svg" Version="0.2.3" />
 	</ItemGroup>
 

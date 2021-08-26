@@ -9,7 +9,7 @@
   <Identity
     Name="adb4c711-ca87-4ebc-a631-29466f617e13"
     Publisher="CN=tanwucheng"
-    Version="0.2.2.0" />
+    Version="1.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="adb4c711-ca87-4ebc-a631-29466f617e13" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

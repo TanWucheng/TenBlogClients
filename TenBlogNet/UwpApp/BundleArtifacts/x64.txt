@@ -1,7 +1,7 @@
-MainPackage=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Release\UwpApp_0.2.2.0_x64.msix
-SymbolPackage=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\obj\x64\Release\Symbols\UwpApp_0.2.2.0_x64.appxsym
-ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Release\UwpApp_0.2.2.0_language-zh-hans.msix
-ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Release\UwpApp_0.2.2.0_scale-100.msix
-ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Release\UwpApp_0.2.2.0_scale-125.msix
-ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Release\UwpApp_0.2.2.0_scale-150.msix
-ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Release\UwpApp_0.2.2.0_scale-400.msix
+MainPackage=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Debug\UwpApp_1.0.2.0_x64_Debug.msix
+SymbolPackage=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\obj\x64\Debug\Symbols\UwpApp_1.0.2.0_x64_Debug.appxsym
+ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Debug\UwpApp_1.0.2.0_language-zh-hans.msix
+ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Debug\UwpApp_1.0.2.0_scale-100.msix
+ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Debug\UwpApp_1.0.2.0_scale-125.msix
+ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Debug\UwpApp_1.0.2.0_scale-150.msix
+ResourcePack=D:\Users\tanwucheng\Documents\Github\TenBlogClients\TenBlogNet\UwpApp\bin\x64\Debug\UwpApp_1.0.2.0_scale-400.msix
